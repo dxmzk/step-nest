@@ -1,31 +1,61 @@
 /**
  * Create By: Meng
  * Create Date: 2022-03
- * Desc: 
+ * Desc:
  */
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Post } from "@nestjs/common";
+import AppResult from "src/modules/AppResult";
+import { BookService } from "./book.service";
 
-@Controller('book')
+@Controller("book")
 export class BookController {
+  constructor(private readonly appService: BookService) {}
 
-  // 获取书列表
-  getBooks() {
-
+  // 图书列表
+  @Get("books")
+  queryBooks(): Promise<AppResult> {
+    return this.appService.queryBooks();
   }
 
-  // 获取书详情
+  // 图书详情
+  @Get("detail")
+  queryDetail(id: number): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 
-  // 获取书下载地址
+  // 创建
+  @Post("create")
+  createBook(): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 
-  // 查询相似书
+  // 更新
+  @Post("update")
+  updateBook(): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 
-  // 热销/推荐的书
+  // 删除/撤销
+  @Get("deleteOrDown")
+  deleteOrDown(): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 
-  // 添加书
+  // 获取图书下载地址
+  @Get("bookUrl")
+  queryBookUrl(): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 
-  // 删除/下架 书
+  // 获取热销
+  @Get("hotBooks")
+  queryHotBooks(): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 
-  // 更新书
-
-
+  // 获取相似
+  @Get("similarBooks")
+  querySimilarBook(): Promise<AppResult> {
+    return this.appService.queryBooks();
+  }
 }

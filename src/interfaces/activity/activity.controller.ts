@@ -11,20 +11,26 @@ import AppResult from 'src/modules/AppResult';
 export class ActivityController {
 
   // 活动列表
-  @Get('getActivitys')
+  @Get('activitys')
   queryActivitys() {
 
   }
 
   // 活动详情
-  @Get('getActDetail')
+  @Get('detail')
   queryDetail(@Query('id') id: number) {
 
   }
 
   // 创建/更新活动
-  @Post('createOrUpdate')
-  createOrUpadte() {
+  @Post('create')
+  createActivity() {
+
+  }
+
+  // 创建/更新活动
+  @Post('update')
+  upadteActivity() {
 
   }
 
@@ -36,8 +42,14 @@ export class ActivityController {
   }
 
   // 添加标签
-  @Post('createOrUpTag')
-  createOrUpadteTag() {
+  @Post('createTag')
+  createTag() {
+
+  }
+
+  // 添加标签
+  @Post('updateTag')
+  upadteTag() {
 
   }
 

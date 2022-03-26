@@ -21,7 +21,12 @@ export class ActivityService {
   }
 
   // 创建/更新活动
-  async createOrUpadte(): Promise<AppResult> {
+  async createActivity(): Promise<AppResult> {
+    return AppResult.succee('');
+  }
+
+  // 创建/更新活动
+  async updateActivity(): Promise<AppResult> {
     return AppResult.succee('');
   }
 
