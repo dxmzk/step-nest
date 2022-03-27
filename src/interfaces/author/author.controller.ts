@@ -8,7 +8,7 @@ export class AuthorController {
 
   //
   @Get("authors")
-  queryAuthor(): Promise<AppResult> {
+  queryAuthor(@Query('pageSize') size: number, @Query('pageNum') num: number, ): Promise<AppResult> {
     return this.appService.queryAuthor();
   }
 

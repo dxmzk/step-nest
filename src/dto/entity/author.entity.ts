@@ -25,7 +25,7 @@ export class Author {
   desc: string; // 简介
 
   @Column({type: "varchar", default: '1', length: 100 })
-  cover: string; // 封面
+  icon: string; // 头像
 
   @Column({type: "varchar", default: '', length: 200 })
   about: string; // 关于
