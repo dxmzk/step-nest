@@ -8,43 +8,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookController = void 0;
 const common_1 = require("@nestjs/common");
+const list_body_1 = require("../../dto/body/list_body");
 const book_service_1 = require("./book.service");
 let BookController = class BookController {
     constructor(appService) {
         this.appService = appService;
     }
-    queryBooks() {
-        return this.appService.queryBooks();
+    queryBooks(body) {
+        console.log(body);
+        return this.appService.queryBooks(body);
     }
     queryDetail(id) {
-        return this.appService.queryBooks();
+        return this.appService.queryDetail(id);
     }
     createBook() {
-        return this.appService.queryBooks();
+        return this.appService.createBook();
     }
     updateBook() {
-        return this.appService.queryBooks();
+        return this.appService.updateBook();
     }
-    deleteOrDown() {
-        return this.appService.queryBooks();
+    deleteOrDown(id) {
+        return this.appService.deleteOrDown(id);
     }
-    queryBookUrl() {
-        return this.appService.queryBooks();
+    queryBookUrl(id) {
+        return this.appService.queryBookUrl(id);
     }
     queryHotBooks() {
-        return this.appService.queryBooks();
+        return this.appService.queryHotBooks();
     }
-    querySimilarBook() {
-        return this.appService.queryBooks();
+    querySimilarBook(type) {
+        return this.appService.querySimilarBook(type);
     }
 };
 __decorate([
-    (0, common_1.Get)("books"),
+    (0, common_1.Post)("books"),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [list_body_1.ListBody]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "queryBooks", null);
 __decorate([
@@ -68,17 +74,17 @@ __decorate([
 __decorate([
     (0, common_1.Get)("deleteOrDown"),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "deleteOrDown", null);
 __decorate([
     (0, common_1.Get)("bookUrl"),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "queryBookUrl", null);
 __decorate([
-    (0, common_1.Get)("hotBooks"),
+    (0, common_1.Post)("hotBooks"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -86,7 +92,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)("similarBooks"),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "querySimilarBook", null);
 BookController = __decorate([

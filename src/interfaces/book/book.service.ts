@@ -4,13 +4,24 @@
  * Desc: 图书
  */
 import { Injectable } from "@nestjs/common";
+import AppDataSource from "src/config/sql_source";
+import { ListBody } from "src/dto/body/list_body";
+import { Book } from "src/dto/entity/book.entity";
 import AppResult from "src/modules/AppResult";
 
 @Injectable()
 export class BookService {
   // 图书列表
-  async queryBooks(): Promise<AppResult> {
-    return AppResult.succee("");
+  async queryBooks(body: ListBody): Promise<AppResult> {
+    const start = (body.pageNum || 0) * (body.pageSize || 10);
+    const end = (body.pageNum || 0) * (body.pageSize || 10);
+    const books = await  AppDataSource.getRepository(Book)
+      .createQueryBuilder("book")
+      // .leftJoinAndSelect("user.name", "photo")
+      .skip(start)
+      .take(end)
+      .getMany();
+    return AppResult.succee(books);
   }
 
   // 图书详情
@@ -39,12 +50,17 @@ export class BookService {
   }
 
   // 获取热销
-  async queryHotBooks(id: number): Promise<AppResult> {
+  async queryHotBooks(): Promise<AppResult> {
+    const users = await getRepository(Book)
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.photos", "photo")
+      .skip(10)
+      .getMany();
     return AppResult.succee("");
   }
 
   // 获取相似
-  async queryAimilarBook(id: number): Promise<AppResult> {
+  async querySimilarBook(id: number): Promise<AppResult> {
     return AppResult.succee("");
   }
 }

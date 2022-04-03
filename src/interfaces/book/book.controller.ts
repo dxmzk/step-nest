@@ -3,7 +3,8 @@
  * Create Date: 2022-03
  * Desc:
  */
-import { Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { ListBody } from "src/dto/body/list_body";
 import AppResult from "src/modules/AppResult";
 import { BookService } from "./book.service";
 
@@ -12,50 +13,52 @@ export class BookController {
   constructor(private readonly appService: BookService) {}
 
   // 图书列表
-  @Get("books")
-  queryBooks(): Promise<AppResult> {
-    return this.appService.queryBooks();
+  @Post("books")
+  // queryBooks(@Query('pageNum') num: number, @Query('pageSize') size: number, @Query('keyword') key: string, ): Promise<AppResult> {
+  queryBooks(@Body() body: ListBody): Promise<AppResult> {
+    console.log(body)
+    return this.appService.queryBooks(body);
   }
 
   // 图书详情
   @Get("detail")
   queryDetail(id: number): Promise<AppResult> {
-    return this.appService.queryBooks();
+    return this.appService.queryDetail(id);
   }
 
   // 创建
   @Post("create")
   createBook(): Promise<AppResult> {
-    return this.appService.queryBooks();
+    return this.appService.createBook();
   }
 
   // 更新
   @Post("update")
   updateBook(): Promise<AppResult> {
-    return this.appService.queryBooks();
+    return this.appService.updateBook();
   }
 
   // 删除/撤销
   @Get("deleteOrDown")
-  deleteOrDown(): Promise<AppResult> {
-    return this.appService.queryBooks();
+  deleteOrDown(id: number): Promise<AppResult> {
+    return this.appService.deleteOrDown(id);
   }
 
   // 获取图书下载地址
   @Get("bookUrl")
-  queryBookUrl(): Promise<AppResult> {
-    return this.appService.queryBooks();
+  queryBookUrl(id: number): Promise<AppResult> {
+    return this.appService.queryBookUrl(id);
   }
 
   // 获取热销
-  @Get("hotBooks")
+  @Post("hotBooks")
   queryHotBooks(): Promise<AppResult> {
-    return this.appService.queryBooks();
+    return this.appService.queryHotBooks();
   }
 
   // 获取相似
   @Get("similarBooks")
-  querySimilarBook(): Promise<AppResult> {
-    return this.appService.queryBooks();
+  querySimilarBook(type: number): Promise<AppResult> {
+    return this.appService.querySimilarBook(type);
   }
 }

@@ -4,7 +4,6 @@
  * Desc: 应用程序的根模块。
  */
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AccountModule } from "./interfaces/account/account.module";
@@ -19,7 +18,7 @@ import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(Mysql),
+    // TypeOrmModule.forRoot(Mysql),
     AccountModule,
     ActivityModule,
     AuthorModule,
