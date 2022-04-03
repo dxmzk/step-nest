@@ -8,7 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuService = void 0;
 const common_1 = require("@nestjs/common");
+const AppResult_1 = require("../../modules/AppResult");
 let MenuService = class MenuService {
+    async queryMenu() {
+        return AppResult_1.default.succee('');
+    }
+    async updateMenu(id) {
+        return AppResult_1.default.succee('');
+    }
+    async createMenu(id) {
+        return AppResult_1.default.succee('');
+    }
+    async deleteMenu(id) {
+        return AppResult_1.default.succee('');
+    }
 };
 MenuService = __decorate([
     (0, common_1.Injectable)()

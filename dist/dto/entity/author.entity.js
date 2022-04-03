@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ type: "varchar", default: '1', length: 100 }),
     __metadata("design:type", String)
-], Author.prototype, "cover", void 0);
+], Author.prototype, "icon", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "varchar", default: '', length: 200 }),
     __metadata("design:type", String)

@@ -8,7 +8,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivityService = void 0;
 const common_1 = require("@nestjs/common");
+const AppResult_1 = require("../../modules/AppResult");
 let ActivityService = class ActivityService {
+    async queryActivitys() {
+        return AppResult_1.default.succee('');
+    }
+    async queryDetail(id) {
+        return AppResult_1.default.succee('');
+    }
+    async createActivity() {
+        return AppResult_1.default.succee('');
+    }
+    async updateActivity() {
+        return AppResult_1.default.succee('');
+    }
+    async deleteOrDown(id) {
+        return AppResult_1.default.succee('');
+    }
+    async createOrUpadteTag() {
+        return AppResult_1.default.succee('');
+    }
+    async deleteTag(id) {
+        return AppResult_1.default.succee('');
+    }
 };
 ActivityService = __decorate([
     (0, common_1.Injectable)()

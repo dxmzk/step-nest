@@ -8,12 +8,13 @@ import AppResult from "src/modules/AppResult";
 
 @Injectable()
 export class AuthorService {
-  // 
+
+  // 作者列表
   async queryAuthor(): Promise<AppResult> {
     return AppResult.succee("");
   }
 
-  // 
+  // 详情
   async authorDetail(): Promise<AppResult> {
     return AppResult.succee("");
   }

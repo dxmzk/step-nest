@@ -3,7 +3,7 @@ export declare class Author {
     code: string;
     name: string;
     desc: string;
-    cover: string;
+    icon: string;
     about: string;
     link: string;
     tag: number;

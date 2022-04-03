@@ -6,17 +6,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ShopModule = void 0;
+exports.AuthorService = void 0;
 const common_1 = require("@nestjs/common");
-const shop_controller_1 = require("./shop.controller");
-const shop_service_1 = require("./shop.service");
-let ShopModule = class ShopModule {
+const AppResult_1 = require("../../modules/AppResult");
+let AuthorService = class AuthorService {
+    async queryAuthor() {
+        return AppResult_1.default.succee("");
+    }
+    async authorDetail() {
+        return AppResult_1.default.succee("");
+    }
+    async createAuthor() {
+        return AppResult_1.default.succee("");
+    }
+    async updateAuthor() {
+        return AppResult_1.default.succee("");
+    }
+    async deleteAuthor(id) {
+        return AppResult_1.default.succee("");
+    }
 };
-ShopModule = __decorate([
-    (0, common_1.Module)({
-        providers: [shop_service_1.ShopService],
-        controllers: [shop_controller_1.ShopController]
-    })
-], ShopModule);
-exports.ShopModule = ShopModule;
-//# sourceMappingURL=shop.module.js.map
+AuthorService = __decorate([
+    (0, common_1.Injectable)()
+], AuthorService);
+exports.AuthorService = AuthorService;
+//# sourceMappingURL=author.service.js.map

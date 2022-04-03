@@ -8,12 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuModule = void 0;
 const common_1 = require("@nestjs/common");
+const menu_controller_1 = require("./menu.controller");
 const menu_service_1 = require("./menu.service");
 let MenuModule = class MenuModule {
 };
 MenuModule = __decorate([
     (0, common_1.Module)({
-        providers: [menu_service_1.MenuService]
+        providers: [menu_service_1.MenuService],
+        controllers: [menu_controller_1.MenuController]
     })
 ], MenuModule);
 exports.MenuModule = MenuModule;

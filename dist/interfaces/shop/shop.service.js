@@ -8,7 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShopService = void 0;
 const common_1 = require("@nestjs/common");
+const AppResult_1 = require("../../modules/AppResult");
 let ShopService = class ShopService {
+    async queryShops() {
+        return AppResult_1.default.succee('');
+    }
+    async queryDetail(id) {
+        return AppResult_1.default.succee('');
+    }
 };
 ShopService = __decorate([
     (0, common_1.Injectable)()
