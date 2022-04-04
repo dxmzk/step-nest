@@ -4,8 +4,10 @@
  * Desc:
  */
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { BookBody } from "src/dto/body/book";
 import { ListBody } from "src/dto/body/list_body";
 import AppResult from "src/modules/AppResult";
+import Errors from "src/modules/exception/Error";
 import { BookService } from "./book.service";
 
 @Controller("book")
@@ -28,8 +30,12 @@ export class BookController {
 
   // 创建
   @Post("create")
-  createBook(): Promise<AppResult> {
-    return this.appService.createBook();
+  createBook(body: BookBody): Promise<AppResult> {
+    // 参数校验
+    if(body.name || body.author || body.about || body.cover || body.tag) {
+      throw Errors.PWD_ERR;
+    }
+    return this.appService.createBook(body);
   }
 
   // 更新

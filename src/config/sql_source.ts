@@ -24,7 +24,7 @@ const AppDataSource = new DataSource({
 
 AppDataSource.initialize()
   .then((res) => {
-    console.log(res);
+    // console.log(res);
   })
   .catch((error) => console.log(error));
 

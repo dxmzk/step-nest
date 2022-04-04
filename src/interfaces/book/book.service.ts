@@ -5,9 +5,11 @@
  */
 import { Injectable } from "@nestjs/common";
 import AppDataSource from "src/config/sql_source";
+import { BookBody } from "src/dto/body/book";
 import { ListBody } from "src/dto/body/list_body";
 import { Book } from "src/dto/entity/book.entity";
 import AppResult from "src/modules/AppResult";
+import Errors from "src/modules/exception/Error";
 
 @Injectable()
 export class BookService {
@@ -30,8 +32,13 @@ export class BookService {
   }
 
   // 创建
-  async createBook(): Promise<AppResult> {
-    return AppResult.succee("");
+  async createBook(body: BookBody): Promise<AppResult> {
+    
+    const book = AppDataSource.getRepository(Book);
+    const count = await book.count();
+
+    const res = await book.save(body)
+    return AppResult.succee(res);
   }
 
   // 更新
@@ -51,11 +58,11 @@ export class BookService {
 
   // 获取热销
   async queryHotBooks(): Promise<AppResult> {
-    const users = await getRepository(Book)
-      .createQueryBuilder("user")
-      .leftJoinAndSelect("user.photos", "photo")
-      .skip(10)
-      .getMany();
+    // const users = await getRepository(Book)
+    //   .createQueryBuilder("user")
+    //   .leftJoinAndSelect("user.photos", "photo")
+    //   .skip(10)
+    //   .getMany();
     return AppResult.succee("");
   }
 

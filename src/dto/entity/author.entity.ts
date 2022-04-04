@@ -7,8 +7,10 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
   // UpdateDateColumn,
 } from 'typeorm';
+import { Book } from './book.entity';
 
 @Entity()
 export class Author {
@@ -57,4 +59,6 @@ export class Author {
   @Column({type: "varchar", default: '', length: 20 })
   create_date: string; // 创建日期 xxxx-MM-dd hh:mm:ss
 
+  @OneToMany(type => Book, book => book.author)
+  book: Book;
 }

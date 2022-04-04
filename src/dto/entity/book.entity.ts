@@ -7,8 +7,11 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
   // UpdateDateColumn,
 } from 'typeorm';
+import { Author } from './author.entity';
+import { Classify } from './classify.entity';
 
 @Entity()
 export class Book {
@@ -24,11 +27,11 @@ export class Book {
   @Column({type: "varchar", default: '', length: 200 })
   desc: string; // 简介
 
-  @Column({type: "varchar", default: '', length: 100 })
-  author: string; // 作者
+  @OneToMany(type => Author, author => author.book)
+  author: Author[]; // 作者
 
-  @Column()
-  size: number; // 大小
+  @Column({type: 'int', default: 0 })
+  size: number; // 大小 单位：kb
 
   @Column({type: "varchar", default: '1', length: 100 })
   cover: string; // 封面
@@ -39,20 +42,20 @@ export class Book {
   @Column({type: "varchar", default: '', length: 100 })
   link: string; // 链接
 
+  @OneToMany(type => Classify, classify => classify.classify)
+  classify: Classify[]; // 类型 - 逗号分隔,如：1,2,3
+
   @Column({ type: 'int', default: 0 })
-  format: number; // 格式
+  format: number; // 格式 - txt,pdf
 
   @Column({type: 'int', default: 0 })
   tag: number; // 标记 
 
   @Column({ type: 'int', default: 0 })
-  status: number; // 状态
+  status: number; // 状态 - 0:可预览，1:可下载，2:不可下载，3:下架，4:删除
 
   @Column({ type: 'int', default: 0 })
-  classify: number; // 类型
-
-  @Column({ type: 'int', default: 0 })
-  star: number; // 推荐星级
+  star: number; // 推荐星级 - 1-5
 
   @Column({ default: 0 })
   price: number; // 价格

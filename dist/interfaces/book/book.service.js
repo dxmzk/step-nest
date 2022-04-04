@@ -8,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookService = void 0;
 const common_1 = require("@nestjs/common");
+const sql_source_1 = require("../../config/sql_source");
 const book_entity_1 = require("../../dto/entity/book.entity");
 const AppResult_1 = require("../../modules/AppResult");
-const typeorm_1 = require("typeorm");
 let BookService = class BookService {
     async queryBooks(body) {
         const start = (body.pageNum || 0) * (body.pageSize || 10);
         const end = (body.pageNum || 0) * (body.pageSize || 10);
-        const books = await (0, typeorm_1.getRepository)(book_entity_1.Book)
+        const books = await sql_source_1.default.getRepository(book_entity_1.Book)
             .createQueryBuilder("book")
             .skip(start)
             .take(end)
@@ -38,11 +38,6 @@ let BookService = class BookService {
         return AppResult_1.default.succee("");
     }
     async queryHotBooks() {
-        const users = await (0, typeorm_1.getRepository)(book_entity_1.Book)
-            .createQueryBuilder("user")
-            .leftJoinAndSelect("user.photos", "photo")
-            .skip(10)
-            .getMany();
         return AppResult_1.default.succee("");
     }
     async querySimilarBook(id) {

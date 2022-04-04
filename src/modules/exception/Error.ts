@@ -15,6 +15,7 @@ const Errors = {
   ACCOUNT_ERROR: AppException.init('账号有误！', 200013),
   ACCOUNT_NOT: AppException.init('账号不存在！', 200014),
   LOGIN_ERROR: AppException.init('账号规则有误！', 200020),
+  PARAM_ERROR: AppException.init('参数有误', 200100),
 }
 
 export default Errors;
