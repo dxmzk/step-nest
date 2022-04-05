@@ -29,6 +29,6 @@ export class Classify {
   @Column({type: "varchar", default: '', length: 20 })
   create_date: string; // 创建日期 xxxx-MM-dd hh:mm:ss
 
-  @ManyToOne(type => Book, book => book.classify)
-  classify: Book;
+  // @ManyToOne(type => Book, book => book.classify)
+  // classify: Book;
 }

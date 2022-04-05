@@ -27,8 +27,8 @@ export class Book {
   @Column({type: "varchar", default: '', length: 200 })
   desc: string; // 简介
 
-  @OneToMany(type => Author, author => author.book)
-  author: Author[]; // 作者
+  // @OneToMany(type => Author, author => author.book)
+  // author: Author[]; // 作者
 
   @Column({type: 'int', default: 0 })
   size: number; // 大小 单位：kb
@@ -42,8 +42,8 @@ export class Book {
   @Column({type: "varchar", default: '', length: 100 })
   link: string; // 链接
 
-  @OneToMany(type => Classify, classify => classify.classify)
-  classify: Classify[]; // 类型 - 逗号分隔,如：1,2,3
+  // @OneToMany(type => Classify, classify => classify.classify)
+  // classify: Classify[]; // 类型 - 逗号分隔,如：1,2,3
 
   @Column({ type: 'int', default: 0 })
   format: number; // 格式 - txt,pdf

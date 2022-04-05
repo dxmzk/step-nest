@@ -59,6 +59,6 @@ export class Author {
   @Column({type: "varchar", default: '', length: 20 })
   create_date: string; // 创建日期 xxxx-MM-dd hh:mm:ss
 
-  @OneToMany(type => Book, book => book.author)
-  book: Book;
+  // @OneToMany(type => Book, book => book.author)
+  // book: Book;
 }
