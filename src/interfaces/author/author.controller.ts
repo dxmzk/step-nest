@@ -1,3 +1,8 @@
+/**
+ * Create By: Meng
+ * Create Date: 2022-04
+ * Desc: 
+ */
 import { Controller, Get, Post, Query } from "@nestjs/common";
 import AppResult from "src/modules/AppResult";
 import { AuthorService } from "./author.service";

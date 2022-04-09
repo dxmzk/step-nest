@@ -13,7 +13,11 @@ import { ShopModule } from "./interfaces/shop/shop.module";
 import { BookModule } from "./interfaces/book/book.module";
 import { AuthorModule } from "./interfaces/author/author.module";
 import { ActivityModule } from "./interfaces/activity/activity.module";
-import Mysql from "./config/mysql";
+import { SystemModule } from './interfaces/system/system.module';
+import { ConfigService } from './interfaces/config/config.service';
+import { ConfigController } from './interfaces/config/config.controller';
+import { ConfigModule } from './interfaces/config/config.module';
+// import Mysql from "./config/mysql";
 import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
 
 @Module({
@@ -25,11 +29,14 @@ import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
     BookModule,
     MenuModule,
     ShopModule,
+    SystemModule,
+    ConfigModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ConfigController],
   providers: [
     AppService,
     { provide: APP_FILTER, useClass: AppExceptionFilter },
+    ConfigService,
   ],
 })
 export class AppModule {}
