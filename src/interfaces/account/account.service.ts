@@ -5,7 +5,7 @@
  */
 import { Injectable } from '@nestjs/common';
 // import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getConnection, Connection } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { LoginBody, RegisterBody } from '../../dto/body/index';
 import { User } from '../../dto/entity/user.entity';
@@ -13,6 +13,7 @@ import { Pwd } from '../../dto/entity/pwd.entity';
 import AppResult from '../../modules/AppResult';
 import Errors from '../../modules/exception/Error';
 import { createToken } from '../../utils/userUtils';
+import AppDataSource from 'src/config/sql_source';
 
 @Injectable()
 export class AccountService {
@@ -21,23 +22,21 @@ export class AccountService {
   // 登录  验参>获取密码>对比密码>返回用户信息
   async onLogin(body: LoginBody): Promise<AppResult> {
     // 验参
-    const params: any = { key: '', value: '' };
+    const params: any = { };
     switch (body.mode) {
       case 0:
-        params.key = 'user.email = :email';
-        params.value = {email: body.email};
+        params.email = body.email;
         break;
       case 1:
-        params.key = 'user.phone = :phone';
-        params.value = {phone: body.phone};
+        params.phone = body.phone;
         break;
       default:
-        params.key = 'user.name = :name';
-        params.value = {name: body.name};
+        params.name = body.name;
         break;
     }
-    const con: Connection = getConnection();
-    const user: User = await this._getUser(con, params.value, params.key);
+    
+    const con = AppDataSource.getRepository(User);
+    const user: User = await con.findOneBy(params);
 
     if (!user || !user.uid) {
       throw Errors.PWD_ERR;
@@ -45,12 +44,7 @@ export class AccountService {
 
     try {
       // 获取密码
-      const pwd = await con
-        .createQueryBuilder()
-        .select('pwd')
-        .from(Pwd, 'pwd')
-        .where('pwd.id = :id', { id: user.pid })
-        .getOne();
+      const pwd = await AppDataSource.getRepository(Pwd).findOneBy({id: user.pid});
       if (pwd && pwd.password == body.password) {
         // 登录成功
       } else {
@@ -72,9 +66,9 @@ export class AccountService {
   async onRegister(body: RegisterBody): Promise<AppResult> {
     if (body.name) {
     }
-    const con: Connection = getConnection();
+    const con = AppDataSource.getRepository(User);
 
-    const oneName = await this._getUser(con, {name: body.name});
+    const oneName = await con.findOneBy({name: body.name});
 
     if (oneName || oneName.uid) {
       throw Errors.ACCOUNT_REPEAT;
@@ -88,7 +82,7 @@ export class AccountService {
     pwd.password = body.password;
 
     try {
-      const pwd2 = await con
+      const pwd2 = await AppDataSource.getRepository(Pwd)
         .createQueryBuilder()
         .insert()
         .into(Pwd)
@@ -139,12 +133,7 @@ export class AccountService {
   async queryUserInfo(uid: string): Promise<AppResult> {
     let user = null;
     try {
-      user = await getConnection()
-      .createQueryBuilder()
-      .select('user')
-      .from(User, 'user')
-      .where('user.uid = :uid', { uid })
-      .getOne();
+      user = await AppDataSource.getRepository(User).findOneBy({uid});
       if(!user || !user.id) {
         throw Errors.ACCOUNT_NOT;
       }
@@ -158,14 +147,10 @@ export class AccountService {
   // 退出登录
   async onLogout(uid: string): Promise<AppResult> {
     try {
-      const user = await getConnection()
-      .createQueryBuilder()
-      .update(User)
-      .set({
-        token: '',
-      })
-      .where('uid = :uid', { uid })
-      .execute();
+      // await AppDataSource.getRepository(User).update({
+      //   token: '',
+      //   uid
+      // });
     } catch (error) {
       throw Errors.ACCOUNT_ERROR
     }
@@ -175,7 +160,7 @@ export class AccountService {
 
   // 删除账号
   async onDelete(uid: string): Promise<AppResult> {
-    const user = await getConnection()
+    await AppDataSource.getRepository(User)
       .createQueryBuilder()
       .delete()
       .from(User, 'user')
@@ -190,28 +175,8 @@ export class AccountService {
     if (mode != 'abcdefg') {
       return AppResult.succee('Are You 二傻!!!');
     }
-    const users = await getConnection()
-      .createQueryBuilder()
-      .select('user')
-      .from(User, 'user')
-      .getMany();
+    const users = await AppDataSource.getRepository(User).find();
 
     return AppResult.succee(users);
-  }
-
-  async _getUser(con: Connection, value: object, key = 'user.name = :name') {
-    let user = null;
-    // console.log(key, value)
-    try {
-      user = await con
-        .createQueryBuilder()
-        .select('user')
-        .from(User, 'user')
-        .where(key, value)
-        .getOne();
-    } catch (error) {
-      console.log(error);
-    }
-    return user;
   }
 }

@@ -1,4 +1,3 @@
-import { Connection } from 'typeorm';
 import { LoginBody, RegisterBody } from '../../dto/body/index';
 import AppResult from '../../modules/AppResult';
 export declare class AccountService {
@@ -9,5 +8,4 @@ export declare class AccountService {
     onLogout(uid: string): Promise<AppResult>;
     onDelete(uid: string): Promise<AppResult>;
     getUsers(mode: string): Promise<AppResult>;
-    _getUser(con: Connection, value: object, key?: string): Promise<any>;
 }

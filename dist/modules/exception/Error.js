@@ -10,6 +10,7 @@ const Errors = {
     ACCOUNT_ERROR: AppException_1.default.init('账号有误！', 200013),
     ACCOUNT_NOT: AppException_1.default.init('账号不存在！', 200014),
     LOGIN_ERROR: AppException_1.default.init('账号规则有误！', 200020),
+    PARAM_ERROR: AppException_1.default.init('参数有误', 200100),
 };
 exports.default = Errors;
 //# sourceMappingURL=Error.js.map

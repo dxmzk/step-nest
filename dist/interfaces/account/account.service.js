@@ -8,36 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
 const user_entity_1 = require("../../dto/entity/user.entity");
 const pwd_entity_1 = require("../../dto/entity/pwd.entity");
 const AppResult_1 = require("../../modules/AppResult");
 const Error_1 = require("../../modules/exception/Error");
 const userUtils_1 = require("../../utils/userUtils");
+const sql_source_1 = require("../../config/sql_source");
 let AccountService = class AccountService {
     async onLogin(body) {
-        const params = { key: '', value: '' };
+        const params = {};
         switch (body.mode) {
             case 0:
-                params.key = 'user.email = :email';
-                params.value = { email: body.email };
+                params.email = body.email;
                 break;
             case 1:
-                params.key = 'user.phone = :phone';
-                params.value = { phone: body.phone };
+                params.phone = body.phone;
                 break;
             default:
-                params.key = 'user.name = :name';
-                params.value = { name: body.name };
+                params.name = body.name;
                 break;
         }
-        const con = (0, typeorm_1.getConnection)();
-        const user = await this._getUser(con, params.value, params.key);
+        const con = sql_source_1.default.getRepository(user_entity_1.User);
+        const user = await con.findOne(params);
         if (!user || !user.uid) {
             throw Error_1.default.PWD_ERR;
         }
         try {
-            const pwd = await con
+            const pwd = await sql_source_1.default.getRepository(pwd_entity_1.Pwd)
                 .createQueryBuilder()
                 .select('pwd')
                 .from(pwd_entity_1.Pwd, 'pwd')
@@ -60,8 +57,8 @@ let AccountService = class AccountService {
     async onRegister(body) {
         if (body.name) {
         }
-        const con = (0, typeorm_1.getConnection)();
-        const oneName = await this._getUser(con, { name: body.name });
+        const con = sql_source_1.default.getRepository(user_entity_1.User);
+        const oneName = await con.findOneBy({ name: body.name });
         if (oneName || oneName.uid) {
             throw Error_1.default.ACCOUNT_REPEAT;
         }
@@ -71,7 +68,7 @@ let AccountService = class AccountService {
         pwd.date = Date.now();
         pwd.password = body.password;
         try {
-            const pwd2 = await con
+            const pwd2 = await sql_source_1.default.getRepository(pwd_entity_1.Pwd)
                 .createQueryBuilder()
                 .insert()
                 .into(pwd_entity_1.Pwd)
@@ -115,7 +112,7 @@ let AccountService = class AccountService {
     async queryUserInfo(uid) {
         let user = null;
         try {
-            user = await (0, typeorm_1.getConnection)()
+            user = await sql_source_1.default.getRepository(user_entity_1.User)
                 .createQueryBuilder()
                 .select('user')
                 .from(user_entity_1.User, 'user')
@@ -132,7 +129,7 @@ let AccountService = class AccountService {
     }
     async onLogout(uid) {
         try {
-            const user = await (0, typeorm_1.getConnection)()
+            await sql_source_1.default.getRepository(user_entity_1.User)
                 .createQueryBuilder()
                 .update(user_entity_1.User)
                 .set({
@@ -147,7 +144,7 @@ let AccountService = class AccountService {
         return AppResult_1.default.succee('退出成功');
     }
     async onDelete(uid) {
-        const user = await (0, typeorm_1.getConnection)()
+        await sql_source_1.default.getRepository(user_entity_1.User)
             .createQueryBuilder()
             .delete()
             .from(user_entity_1.User, 'user')
@@ -159,27 +156,8 @@ let AccountService = class AccountService {
         if (mode != 'abcdefg') {
             return AppResult_1.default.succee('Are You 二傻!!!');
         }
-        const users = await (0, typeorm_1.getConnection)()
-            .createQueryBuilder()
-            .select('user')
-            .from(user_entity_1.User, 'user')
-            .getMany();
+        const users = await sql_source_1.default.getRepository(user_entity_1.User).find();
         return AppResult_1.default.succee(users);
-    }
-    async _getUser(con, value, key = 'user.name = :name') {
-        let user = null;
-        try {
-            user = await con
-                .createQueryBuilder()
-                .select('user')
-                .from(user_entity_1.User, 'user')
-                .where(key, value)
-                .getOne();
-        }
-        catch (error) {
-            console.log(error);
-        }
-        return user;
     }
 };
 AccountService = __decorate([

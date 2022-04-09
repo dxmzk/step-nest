@@ -18,7 +18,7 @@ export class User {
   @Column({type: "varchar", default: '', length: 24 })
   uid: string; //
 
-  @Column({ type: 'int', default: 0 })
+  @Column({default: 0 })
   pid: number; // 密码id
 
   @Column({type: "varchar", default: '', length: 50 })

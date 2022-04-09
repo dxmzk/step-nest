@@ -30,11 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], Book.prototype, "desc", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "varchar", default: '', length: 100 }),
-    __metadata("design:type", String)
-], Book.prototype, "author", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: 'int', default: 0 }),
     __metadata("design:type", Number)
 ], Book.prototype, "size", void 0);
 __decorate([
@@ -61,10 +57,6 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'int', default: 0 }),
     __metadata("design:type", Number)
 ], Book.prototype, "status", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 0 }),
-    __metadata("design:type", Number)
-], Book.prototype, "classify", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'int', default: 0 }),
     __metadata("design:type", Number)

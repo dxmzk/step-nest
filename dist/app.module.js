@@ -17,6 +17,8 @@ const shop_module_1 = require("./interfaces/shop/shop.module");
 const book_module_1 = require("./interfaces/book/book.module");
 const author_module_1 = require("./interfaces/author/author.module");
 const activity_module_1 = require("./interfaces/activity/activity.module");
+const system_module_1 = require("./interfaces/system/system.module");
+const config_module_1 = require("./interfaces/config/config.module");
 const AppExceptionFilter_1 = require("./modules/exception/AppExceptionFilter");
 let AppModule = class AppModule {
 };
@@ -29,11 +31,13 @@ AppModule = __decorate([
             book_module_1.BookModule,
             menu_module_1.MenuModule,
             shop_module_1.ShopModule,
+            system_module_1.SystemModule,
+            config_module_1.ConfigModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
             app_service_1.AppService,
-            { provide: core_1.APP_FILTER, useClass: AppExceptionFilter_1.default },
+            { provide: core_1.APP_FILTER, useClass: AppExceptionFilter_1.default }
         ],
     })
 ], AppModule);

@@ -3,7 +3,6 @@ export declare class Book {
     code: string;
     name: string;
     desc: string;
-    author: string;
     size: number;
     cover: string;
     about: string;
@@ -11,7 +10,6 @@ export declare class Book {
     format: number;
     tag: number;
     status: number;
-    classify: number;
     star: number;
     price: number;
     num: number;

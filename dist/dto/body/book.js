@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Book = void 0;
-class Book {
+exports.BookBody = void 0;
+class BookBody {
 }
-exports.Book = Book;
+exports.BookBody = BookBody;
 //# sourceMappingURL=book.js.map

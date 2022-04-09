@@ -25,8 +25,11 @@ let BookService = class BookService {
     async queryDetail(id) {
         return AppResult_1.default.succee("");
     }
-    async createBook() {
-        return AppResult_1.default.succee("");
+    async createBook(body) {
+        const book = sql_source_1.default.getRepository(book_entity_1.Book);
+        const count = await book.count();
+        const res = await book.save(body);
+        return AppResult_1.default.succee(res);
     }
     async updateBook() {
         return AppResult_1.default.succee("");
