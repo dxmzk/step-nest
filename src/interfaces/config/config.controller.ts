@@ -13,13 +13,13 @@ export class ConfigController {
   // 活动列表
   @Get('banner')
   queryBanners() {
-
+    this.appService.queryBanners();
   }
 
   // 活动列表
   @Get('tabs')
   queryTabs() {
-
+    return this.appService.queryTabs();
   }
   
 }
