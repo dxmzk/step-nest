@@ -10,8 +10,15 @@ import { Cron } from '@nestjs/schedule';
 export class AppService {
   
 
-  @Cron('* 1 * * * *')
-  handleAppCrontab() {
+  @Cron('* * 1 * * *')
+  handleAppDayCrontab() {
     // 每小时一分执行
+    console.log('============> handleAppDayCrontab')
+  }
+
+  @Cron('* 1 * * * *')
+  handleAppHourCrontab() {
+    // 每小时一分执行
+    console.log('============> handleAppHourCrontab')
   }
 }

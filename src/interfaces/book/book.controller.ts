@@ -45,25 +45,25 @@ export class BookController {
   }
 
   // 删除/撤销
-  @Get("deleteOrDown")
+  @Get("delete_or_down")
   deleteOrDown(id: number): Promise<AppResult> {
     return this.appService.deleteOrDown(id);
   }
 
   // 获取图书下载地址
-  @Get("bookUrl")
+  @Get("book_url")
   queryBookUrl(id: number): Promise<AppResult> {
     return this.appService.queryBookUrl(id);
   }
 
   // 获取热销
-  @Post("hotBooks")
+  @Post("hot_books")
   queryHotBooks(): Promise<AppResult> {
     return this.appService.queryHotBooks();
   }
 
   // 获取相似
-  @Get("similarBooks")
+  @Get("similar_books")
   querySimilarBook(type: number): Promise<AppResult> {
     return this.appService.querySimilarBook(type);
   }

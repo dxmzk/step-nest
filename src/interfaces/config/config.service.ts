@@ -18,4 +18,24 @@ export class ConfigService {
   async queryTabs(): Promise<AppResult> {
     return AppResult.succee('');
   }
+  
+  // 添加banner/轮播图
+  async createBanner(): Promise<AppResult> {
+    return AppResult.succee('');
+  }
+
+  // 添加tab
+  async createTab(): Promise<AppResult> {
+    return AppResult.succee('');
+  }
+
+  // 添加banner/轮播图
+  async deleteBanner(): Promise<AppResult> {
+    return AppResult.succee('');
+  }
+
+  // 添加tab
+  async deleteTab(): Promise<AppResult> {
+    return AppResult.succee('');
+  }
 }

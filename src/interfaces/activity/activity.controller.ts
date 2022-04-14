@@ -9,11 +9,11 @@ import AppResult from 'src/modules/AppResult';
 
 @Controller('activity')
 export class ActivityController {
-
+  constructor(private readonly appService: ActivityController) {}
   // 活动列表
   @Get('activitys')
-  queryActivitys() {
-
+  queryActivitys(): Promise<AppResult> {
+    return this.appService.queryActivitys();
   }
 
   // 活动详情
@@ -36,25 +36,25 @@ export class ActivityController {
 
   // 删除/撤销活动
   // 创建/更新活动
-  @Get('deleteOrDown')
+  @Get('delete_or_down')
   deleteOrDown(@Query('id') id: number) {
 
   }
 
   // 添加标签
-  @Post('createTag')
+  @Post('create_tag')
   createTag() {
 
   }
 
   // 添加标签
-  @Post('updateTag')
+  @Post('update_tag')
   upadteTag() {
 
   }
 
   // 删除标签
-  @Get('deleteTag')
+  @Get('delete_tag')
   deleteTag(@Query('id') id: number) {
 
   }
