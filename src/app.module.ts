@@ -17,10 +17,12 @@ import { SystemModule } from './interfaces/system/system.module';
 import { ConfigModule } from './interfaces/config/config.module';
 // import Mysql from "./config/mysql";
 import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [
     // TypeOrmModule.forRoot(Mysql),
+    ScheduleModule.forRoot(),
     AccountModule,
     ActivityModule,
     AuthorModule,

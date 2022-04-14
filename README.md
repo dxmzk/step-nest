@@ -5,6 +5,8 @@
 文档：https://docs.nestjs.cn/
 加密库：crypto-js
 http://localhost:8197/3000
+定时任务：https://docs.nestjs.cn/8/techniques?id=%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1
+数据卡：https://github.com/typeorm/typeorm
 
 ## 开始
 
