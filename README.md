@@ -9,6 +9,7 @@ http://localhost:8197/3000
 ## 开始
 
 ```bash
+$ npm i -g @nestjs/cli
 $ npm install
 $ npm run start
 $ npm run start:dev
