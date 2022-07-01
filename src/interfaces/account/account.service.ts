@@ -13,7 +13,7 @@ import { Pwd } from '../../dto/entity/pwd.entity';
 import AppResult from '../../modules/AppResult';
 import Errors from '../../modules/exception/Error';
 import { createToken } from '../../utils/userUtils';
-import AppDataSource from 'src/config/sql_source';
+import AppDataSource from 'src/config/app_sql_source';
 
 @Injectable()
 export class AccountService {

@@ -4,7 +4,7 @@
  * Desc: 图书
  */
 import { Injectable } from "@nestjs/common";
-import AppDataSource from "src/config/sql_source";
+import AppDataSource from "src/config/app_sql_source";
 import { BookBody } from "src/dto/body/book";
 import { ListBody } from "src/dto/body/list_body";
 import { Book } from "src/dto/entity/book.entity";
