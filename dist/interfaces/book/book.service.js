@@ -8,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookService = void 0;
 const common_1 = require("@nestjs/common");
-const sql_source_1 = require("../../config/sql_source");
+const app_sql_source_1 = require("../../config/app_sql_source");
 const book_entity_1 = require("../../dto/entity/book.entity");
 const AppResult_1 = require("../../modules/AppResult");
 let BookService = class BookService {
     async queryBooks(body) {
         const start = (body.pageNum || 0) * (body.pageSize || 10);
         const end = (body.pageNum || 0) * (body.pageSize || 10);
-        const books = await sql_source_1.default.getRepository(book_entity_1.Book)
+        const books = await app_sql_source_1.default.getRepository(book_entity_1.Book)
             .createQueryBuilder("book")
             .skip(start)
             .take(end)
@@ -26,7 +26,7 @@ let BookService = class BookService {
         return AppResult_1.default.succee("");
     }
     async createBook(body) {
-        const book = sql_source_1.default.getRepository(book_entity_1.Book);
+        const book = app_sql_source_1.default.getRepository(book_entity_1.Book);
         const count = await book.count();
         const res = await book.save(body);
         return AppResult_1.default.succee(res);

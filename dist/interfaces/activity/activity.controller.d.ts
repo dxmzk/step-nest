@@ -1,5 +1,9 @@
+import AppResult from 'src/modules/AppResult';
+import { ActivityService } from './activity.service';
 export declare class ActivityController {
-    queryActivitys(): void;
+    private readonly appService;
+    constructor(appService: ActivityService);
+    queryActivitys(): Promise<AppResult>;
     queryDetail(id: number): void;
     createActivity(): void;
     upadteActivity(): void;

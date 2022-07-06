@@ -18,6 +18,6 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
   // app.useGlobalFilters(new AppExceptionFilter());
-  await app.listen(8197);
+  await app.listen(8397);
 }
 bootstrap();

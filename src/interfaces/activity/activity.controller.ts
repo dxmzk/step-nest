@@ -6,10 +6,11 @@
 
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import AppResult from 'src/modules/AppResult';
+import { ActivityService } from './activity.service';
 
 @Controller('activity')
 export class ActivityController {
-  constructor(private readonly appService: ActivityController) {}
+  constructor(private readonly appService: ActivityService) {}
   // 活动列表
   @Get('activitys')
   queryActivitys(): Promise<AppResult> {

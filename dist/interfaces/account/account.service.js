@@ -13,7 +13,7 @@ const pwd_entity_1 = require("../../dto/entity/pwd.entity");
 const AppResult_1 = require("../../modules/AppResult");
 const Error_1 = require("../../modules/exception/Error");
 const userUtils_1 = require("../../utils/userUtils");
-const sql_source_1 = require("../../config/sql_source");
+const app_sql_source_1 = require("../../config/app_sql_source");
 let AccountService = class AccountService {
     async onLogin(body) {
         const params = {};
@@ -28,18 +28,13 @@ let AccountService = class AccountService {
                 params.name = body.name;
                 break;
         }
-        const con = sql_source_1.default.getRepository(user_entity_1.User);
-        const user = await con.findOne(params);
+        const con = app_sql_source_1.default.getRepository(user_entity_1.User);
+        const user = await con.findOneBy(params);
         if (!user || !user.uid) {
             throw Error_1.default.PWD_ERR;
         }
         try {
-            const pwd = await sql_source_1.default.getRepository(pwd_entity_1.Pwd)
-                .createQueryBuilder()
-                .select('pwd')
-                .from(pwd_entity_1.Pwd, 'pwd')
-                .where('pwd.id = :id', { id: user.pid })
-                .getOne();
+            const pwd = await app_sql_source_1.default.getRepository(pwd_entity_1.Pwd).findOneBy({ id: user.pid });
             if (pwd && pwd.password == body.password) {
             }
             else {
@@ -57,7 +52,7 @@ let AccountService = class AccountService {
     async onRegister(body) {
         if (body.name) {
         }
-        const con = sql_source_1.default.getRepository(user_entity_1.User);
+        const con = app_sql_source_1.default.getRepository(user_entity_1.User);
         const oneName = await con.findOneBy({ name: body.name });
         if (oneName || oneName.uid) {
             throw Error_1.default.ACCOUNT_REPEAT;
@@ -68,7 +63,7 @@ let AccountService = class AccountService {
         pwd.date = Date.now();
         pwd.password = body.password;
         try {
-            const pwd2 = await sql_source_1.default.getRepository(pwd_entity_1.Pwd)
+            const pwd2 = await app_sql_source_1.default.getRepository(pwd_entity_1.Pwd)
                 .createQueryBuilder()
                 .insert()
                 .into(pwd_entity_1.Pwd)
@@ -112,12 +107,7 @@ let AccountService = class AccountService {
     async queryUserInfo(uid) {
         let user = null;
         try {
-            user = await sql_source_1.default.getRepository(user_entity_1.User)
-                .createQueryBuilder()
-                .select('user')
-                .from(user_entity_1.User, 'user')
-                .where('user.uid = :uid', { uid })
-                .getOne();
+            user = await app_sql_source_1.default.getRepository(user_entity_1.User).findOneBy({ uid });
             if (!user || !user.id) {
                 throw Error_1.default.ACCOUNT_NOT;
             }
@@ -129,14 +119,6 @@ let AccountService = class AccountService {
     }
     async onLogout(uid) {
         try {
-            await sql_source_1.default.getRepository(user_entity_1.User)
-                .createQueryBuilder()
-                .update(user_entity_1.User)
-                .set({
-                token: '',
-            })
-                .where('uid = :uid', { uid })
-                .execute();
         }
         catch (error) {
             throw Error_1.default.ACCOUNT_ERROR;
@@ -144,7 +126,7 @@ let AccountService = class AccountService {
         return AppResult_1.default.succee('退出成功');
     }
     async onDelete(uid) {
-        await sql_source_1.default.getRepository(user_entity_1.User)
+        await app_sql_source_1.default.getRepository(user_entity_1.User)
             .createQueryBuilder()
             .delete()
             .from(user_entity_1.User, 'user')
@@ -156,7 +138,7 @@ let AccountService = class AccountService {
         if (mode != 'abcdefg') {
             return AppResult_1.default.succee('Are You 二傻!!!');
         }
-        const users = await sql_source_1.default.getRepository(user_entity_1.User).find();
+        const users = await app_sql_source_1.default.getRepository(user_entity_1.User).find();
         return AppResult_1.default.succee(users);
     }
 };

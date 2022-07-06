@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "uid", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 0 }),
+    (0, typeorm_1.Column)({ default: 0 }),
     __metadata("design:type", Number)
 ], User.prototype, "pid", void 0);
 __decorate([

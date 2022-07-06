@@ -16,6 +16,18 @@ let ConfigService = class ConfigService {
     async queryTabs() {
         return AppResult_1.default.succee('');
     }
+    async createBanner() {
+        return AppResult_1.default.succee('');
+    }
+    async createTab() {
+        return AppResult_1.default.succee('');
+    }
+    async deleteBanner() {
+        return AppResult_1.default.succee('');
+    }
+    async deleteTab() {
+        return AppResult_1.default.succee('');
+    }
 };
 ConfigService = __decorate([
     (0, common_1.Injectable)()

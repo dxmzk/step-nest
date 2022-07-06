@@ -17,24 +17,62 @@ let ConfigController = class ConfigController {
         this.appService = appService;
     }
     queryBanners() {
+        return this.appService.queryBanners();
     }
     queryTabs() {
+        return this.appService.queryTabs();
+    }
+    createBanner() {
+        return this.appService.createBanner();
+    }
+    createTab() {
+        return this.appService.createTab();
+    }
+    deleteBanner() {
+        return this.appService.deleteBanner();
+    }
+    deleteTab() {
+        return this.appService.deleteTab();
     }
 };
 __decorate([
-    (0, common_1.Get)('banner'),
+    (0, common_1.Get)("banners"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ConfigController.prototype, "queryBanners", null);
 __decorate([
-    (0, common_1.Get)('tabs'),
+    (0, common_1.Get)("tabs"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ConfigController.prototype, "queryTabs", null);
+__decorate([
+    (0, common_1.Post)("create_banner"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ConfigController.prototype, "createBanner", null);
+__decorate([
+    (0, common_1.Post)("create_tab"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ConfigController.prototype, "createTab", null);
+__decorate([
+    (0, common_1.Post)("delete_banner"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ConfigController.prototype, "deleteBanner", null);
+__decorate([
+    (0, common_1.Post)("delete_tab"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ConfigController.prototype, "deleteTab", null);
 ConfigController = __decorate([
-    (0, common_1.Controller)('config'),
+    (0, common_1.Controller)("config"),
     __metadata("design:paramtypes", [config_service_1.ConfigService])
 ], ConfigController);
 exports.ConfigController = ConfigController;

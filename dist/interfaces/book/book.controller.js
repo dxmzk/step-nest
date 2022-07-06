@@ -77,25 +77,25 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "updateBook", null);
 __decorate([
-    (0, common_1.Get)("deleteOrDown"),
+    (0, common_1.Get)("delete_or_down"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "deleteOrDown", null);
 __decorate([
-    (0, common_1.Get)("bookUrl"),
+    (0, common_1.Get)("book_url"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "queryBookUrl", null);
 __decorate([
-    (0, common_1.Post)("hotBooks"),
+    (0, common_1.Post)("hot_books"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "queryHotBooks", null);
 __decorate([
-    (0, common_1.Get)("similarBooks"),
+    (0, common_1.Get)("similar_books"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)

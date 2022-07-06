@@ -35,7 +35,6 @@ export class UploadController {
       }),
     }),
   )
-
   async uploadFile(@UploadedFile() upload, @Request() req) {
     const { filename, path, mimetype } = upload;
     upload.uploaded = 1;

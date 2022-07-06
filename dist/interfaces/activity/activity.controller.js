@@ -14,8 +14,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivityController = void 0;
 const common_1 = require("@nestjs/common");
+const activity_service_1 = require("./activity.service");
 let ActivityController = class ActivityController {
+    constructor(appService) {
+        this.appService = appService;
+    }
     queryActivitys() {
+        return this.appService.queryActivitys();
     }
     queryDetail(id) {
     }
@@ -36,7 +41,7 @@ __decorate([
     (0, common_1.Get)('activitys'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ActivityController.prototype, "queryActivitys", null);
 __decorate([
     (0, common_1.Get)('detail'),
@@ -58,33 +63,34 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ActivityController.prototype, "upadteActivity", null);
 __decorate([
-    (0, common_1.Get)('deleteOrDown'),
+    (0, common_1.Get)('delete_or_down'),
     __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ActivityController.prototype, "deleteOrDown", null);
 __decorate([
-    (0, common_1.Post)('createTag'),
+    (0, common_1.Post)('create_tag'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ActivityController.prototype, "createTag", null);
 __decorate([
-    (0, common_1.Post)('updateTag'),
+    (0, common_1.Post)('update_tag'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ActivityController.prototype, "upadteTag", null);
 __decorate([
-    (0, common_1.Get)('deleteTag'),
+    (0, common_1.Get)('delete_tag'),
     __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ActivityController.prototype, "deleteTag", null);
 ActivityController = __decorate([
-    (0, common_1.Controller)('activity')
+    (0, common_1.Controller)('activity'),
+    __metadata("design:paramtypes", [activity_service_1.ActivityService])
 ], ActivityController);
 exports.ActivityController = ActivityController;
 //# sourceMappingURL=activity.controller.js.map
