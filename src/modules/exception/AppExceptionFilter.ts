@@ -1,7 +1,7 @@
 /**
  * Create By: Meng
- * Create Date: 2022-03
- * Desc:
+ * Create Date: 2022-03-06
+ * Desc: 请求异常错误处理
  */
 
 import {
@@ -19,7 +19,7 @@ export default class AppExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     // const request = ctx.getRequest<Request>();
-    let code = 500;
+    let code = 100101;
     let message: string = '未知异常';
     if (exception instanceof HttpException) {
       code = exception.getStatus();

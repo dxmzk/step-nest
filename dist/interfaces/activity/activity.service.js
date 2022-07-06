@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const AppResult_1 = require("../../modules/AppResult");
 let ActivityService = class ActivityService {
     async queryActivitys() {
+        throw Error('asdadsa是短发发色');
         return AppResult_1.default.succee('');
     }
     async queryDetail(id) {

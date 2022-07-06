@@ -20,6 +20,7 @@ const author_module_1 = require("./interfaces/author/author.module");
 const activity_module_1 = require("./interfaces/activity/activity.module");
 const system_module_1 = require("./interfaces/system/system.module");
 const config_module_1 = require("./interfaces/config/config.module");
+const socket_module_1 = require("./services/websocket/socket.module");
 const AppExceptionFilter_1 = require("./modules/exception/AppExceptionFilter");
 let AppModule = class AppModule {
 };
@@ -35,6 +36,7 @@ AppModule = __decorate([
             shop_module_1.ShopModule,
             system_module_1.SystemModule,
             config_module_1.ConfigModule,
+            socket_module_1.SocketModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

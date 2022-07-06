@@ -8,7 +8,10 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { WsAdapter } from '@nestjs/platform-ws';
 import { AppModule } from './app.module';
+import constants from './config/constants';
+import { LogInterceptor } from './modules/interceptor/log_interceptor';
 // import AppExceptionFilter from './modules/exception/AppExceptionFilter';
 
 async function bootstrap() {
@@ -17,7 +20,10 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
-  // app.useGlobalFilters(new AppExceptionFilter());
-  await app.listen(8397);
+  // app.useGlobalFilters(new AppExceptionFilter()); // 全局服务错误处理
+  // app.useGlobalGuards(new RoleGuard()); // 全局角色守卫
+  app.useGlobalInterceptors(new LogInterceptor()); // 全局日志拦截器。
+  app.useWebSocketAdapter(new WsAdapter(app)); // WebSocket
+  await app.listen(constants.port);
 }
 bootstrap();

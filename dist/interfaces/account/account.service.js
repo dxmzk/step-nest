@@ -12,7 +12,7 @@ const user_entity_1 = require("../../dto/entity/user.entity");
 const pwd_entity_1 = require("../../dto/entity/pwd.entity");
 const AppResult_1 = require("../../modules/AppResult");
 const Error_1 = require("../../modules/exception/Error");
-const userUtils_1 = require("../../utils/userUtils");
+const user_utils_1 = require("../../utils/user_utils");
 const app_sql_source_1 = require("../../config/app_sql_source");
 let AccountService = class AccountService {
     async onLogin(body) {
@@ -45,7 +45,7 @@ let AccountService = class AccountService {
             console.log(error);
             throw Error_1.default.LOGIN_ERROR;
         }
-        user.token = (0, userUtils_1.createToken)(user.uid, user.name);
+        user.token = (0, user_utils_1.createToken)(user.uid, user.name);
         con.createQueryBuilder().update(user_entity_1.User).set({ token: user.token }).where('id = :id', { id: user.id }).execute();
         return AppResult_1.default.succee(user);
     }
@@ -82,7 +82,7 @@ let AccountService = class AccountService {
         user.nickname = body.name;
         user.email = body.email;
         user.icon = `${Math.random() * 30}`;
-        user.token = (0, userUtils_1.createToken)(uid, body.name);
+        user.token = (0, user_utils_1.createToken)(uid, body.name);
         let result = null;
         try {
             result = await con

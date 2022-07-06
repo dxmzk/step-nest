@@ -11,7 +11,7 @@ let AppExceptionFilter = class AppExceptionFilter {
     catch(exception, host) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
-        let code = 500;
+        let code = 100101;
         let message = '未知异常';
         if (exception instanceof common_1.HttpException) {
             code = exception.getStatus();

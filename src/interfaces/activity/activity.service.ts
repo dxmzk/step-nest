@@ -12,6 +12,7 @@ export class ActivityService {
   // 活动列表
   async queryActivitys(): Promise<AppResult> {
 
+    throw Error('asdadsa是短发发色');
     return AppResult.succee('');
   }
 

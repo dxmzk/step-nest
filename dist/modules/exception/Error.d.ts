@@ -9,5 +9,6 @@ declare const Errors: {
     ACCOUNT_NOT: AppException;
     LOGIN_ERROR: AppException;
     PARAM_ERROR: AppException;
+    UNKNOWN_ERROR: AppException;
 };
 export default Errors;

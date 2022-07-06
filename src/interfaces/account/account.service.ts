@@ -12,7 +12,7 @@ import { User } from '../../dto/entity/user.entity';
 import { Pwd } from '../../dto/entity/pwd.entity';
 import AppResult from '../../modules/AppResult';
 import Errors from '../../modules/exception/Error';
-import { createToken } from '../../utils/userUtils';
+import { createToken } from '../../utils/user_utils';
 import AppDataSource from 'src/config/app_sql_source';
 
 @Injectable()

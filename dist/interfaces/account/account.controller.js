@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const account_service_1 = require("./account.service");
 const index_1 = require("../../dto/body/index");
 const Error_1 = require("../../modules/exception/Error");
-const userUtils_1 = require("../../utils/userUtils");
+const user_utils_1 = require("../../utils/user_utils");
 let AccountController = class AccountController {
     constructor(appService) {
         this.appService = appService;
@@ -34,7 +34,7 @@ let AccountController = class AccountController {
     queryUserInfo(req) {
         var _a;
         const headers = ((_a = req === null || req === void 0 ? void 0 : req.raw) === null || _a === void 0 ? void 0 : _a.headers) || {};
-        const info = (0, userUtils_1.parasToken)(headers.token);
+        const info = (0, user_utils_1.parasToken)(headers.token);
         let uid = info.uid;
         if (!uid) {
             throw Error_1.default.ACCOUNT_ERROR;
@@ -44,7 +44,7 @@ let AccountController = class AccountController {
     onLogout(req) {
         var _a;
         const headers = ((_a = req === null || req === void 0 ? void 0 : req.raw) === null || _a === void 0 ? void 0 : _a.headers) || {};
-        const info = (0, userUtils_1.parasToken)(headers.token);
+        const info = (0, user_utils_1.parasToken)(headers.token);
         let uid = info.uid;
         if (!uid) {
             throw Error_1.default.ACCOUNT_ERROR;
@@ -54,7 +54,7 @@ let AccountController = class AccountController {
     onDelete(req) {
         var _a;
         const headers = ((_a = req === null || req === void 0 ? void 0 : req.raw) === null || _a === void 0 ? void 0 : _a.headers) || {};
-        const info = (0, userUtils_1.parasToken)(headers.token);
+        const info = (0, user_utils_1.parasToken)(headers.token);
         let uid = info.uid;
         if (!uid) {
             throw Error_1.default.ACCOUNT_ERROR;
