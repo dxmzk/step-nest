@@ -20,6 +20,7 @@ let MenuService = class MenuService {
         return AppResult_1.default.succee('');
     }
     async deleteMenu(id) {
+        console.log('deleteMenu: ', id);
         return AppResult_1.default.succee('');
     }
 };

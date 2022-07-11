@@ -21,7 +21,10 @@ export class AuthGuard implements CanActivate {
     return this._validateRequest(request);
   }
 
+  // 校验是否等录或者登录过期
   private _validateRequest(request={}): boolean {
+    console.log('================> _validateRequest');
+    console.log(request);
     return false
   }
 }

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConfigController = void 0;
 const common_1 = require("@nestjs/common");
+const auth_guard_1 = require("../../modules/guards/auth_guard");
 const config_service_1 = require("./config.service");
 let ConfigController = class ConfigController {
     constructor(appService) {
@@ -73,6 +74,7 @@ __decorate([
 ], ConfigController.prototype, "deleteTab", null);
 ConfigController = __decorate([
     (0, common_1.Controller)("config"),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [config_service_1.ConfigService])
 ], ConfigController);
 exports.ConfigController = ConfigController;

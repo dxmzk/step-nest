@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuController = void 0;
 const common_1 = require("@nestjs/common");
@@ -26,6 +29,9 @@ let MenuController = class MenuController {
         return this.appService.createMenu(id);
     }
     async deleteMenu(id) {
+        return this.appService.deleteMenu(id);
+    }
+    async delete3Menu(id) {
         return this.appService.deleteMenu(id);
     }
 };
@@ -53,6 +59,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "deleteMenu", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "delete3Menu", null);
 MenuController = __decorate([
     (0, common_1.Controller)('menu'),
     __metadata("design:paramtypes", [menu_service_1.MenuService])

@@ -17,7 +17,7 @@ let AppService = class AppService {
         console.log('============> handleAppDayCrontab');
     }
     handleAppHourCrontab() {
-        console.log('============> handleAppHourCrontab');
+        console.log('============> handleAppHourCrontab', Date.now());
     }
 };
 __decorate([

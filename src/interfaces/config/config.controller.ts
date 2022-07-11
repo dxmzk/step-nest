@@ -3,11 +3,13 @@
  * Create Date: 2022-04
  * Desc:
  */
-import { Controller, Get, Post } from "@nestjs/common";
+import { Controller, Get, Post, UseGuards } from "@nestjs/common";
 import AppResult from "src/modules/AppResult";
+import { AuthGuard } from "src/modules/guards/auth_guard";
 import { ConfigService } from "./config.service";
 
 @Controller("config")
+@UseGuards(AuthGuard)
 export class ConfigController {
   constructor(private readonly appService: ConfigService) {}
 

@@ -14,6 +14,8 @@ let AuthGuard = class AuthGuard {
         return this._validateRequest(request);
     }
     _validateRequest(request = {}) {
+        console.log('================> _validateRequest');
+        console.log(request);
         return false;
     }
 };

@@ -27,6 +27,7 @@ export class MenuService {
 
   // 删除菜单
   async deleteMenu(id: number): Promise<AppResult> {
+    console.log('deleteMenu: ',id);
     return AppResult.succee('');
   }
 }

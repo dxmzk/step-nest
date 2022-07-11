@@ -3,7 +3,7 @@
  * Create Date: 2022-03
  * Desc: 
  */
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import AppResult from 'src/modules/AppResult';
 import { MenuService } from './menu.service';
 
@@ -34,4 +34,36 @@ export class MenuController {
   async deleteMenu(id: number): Promise<AppResult> {
     return this.appService.deleteMenu(id);
   }
+
+  // 删除菜单
+  @Get(':id')
+  async delete3Menu(@Param('id') id: number): Promise<AppResult> {
+    return this.appService.deleteMenu(id);
+  }
+
+
+  // @Post()
+  // create(@Body() createDto: CreateDto) {
+  //   return 'This action adds a new ';
+  // }
+  
+  // @Get()
+  // findAll(@Query() query: ListAllEntities) {
+  //   return `This action returns all (limit: ${query.limit} items)`;
+  // }
+
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return `This action returns a #${id} `;
+  // }
+
+  // @Put(':id')
+  // update(@Param('id') id: string, @Body() updateDto: UpdateDto) {
+  //   return `This action updates a #${id} `;
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return `This action removes a #${id} `;
+  // }
 }

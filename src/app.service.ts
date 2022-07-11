@@ -19,6 +19,6 @@ export class AppService {
   // 每天 一点 执行
   @Cron('* 1 * * * *')
   handleAppHourCrontab() {
-    console.log('============> handleAppHourCrontab')
+    console.log('============> handleAppHourCrontab', Date.now())
   }
 }

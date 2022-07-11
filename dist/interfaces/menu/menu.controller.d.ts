@@ -7,4 +7,5 @@ export declare class MenuController {
     updateMenu(id: number): Promise<AppResult>;
     createMenu(id: number): Promise<AppResult>;
     deleteMenu(id: number): Promise<AppResult>;
+    delete3Menu(id: number): Promise<AppResult>;
 }
