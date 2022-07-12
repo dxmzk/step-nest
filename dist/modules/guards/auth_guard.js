@@ -13,9 +13,11 @@ let AuthGuard = class AuthGuard {
         const request = context.switchToHttp().getRequest();
         return this._validateRequest(request);
     }
-    _validateRequest(request = {}) {
-        console.log('================> _validateRequest');
-        console.log(request);
+    _validateRequest(request) {
+        console.log('================>AuthGuard validateRequest');
+        console.log(request.url);
+        console.log(request.params);
+        throw new common_1.UnauthorizedException();
         return false;
     }
 };

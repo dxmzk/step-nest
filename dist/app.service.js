@@ -21,13 +21,13 @@ let AppService = class AppService {
     }
 };
 __decorate([
-    (0, schedule_1.Cron)('* * 1 * * *'),
+    (0, schedule_1.Cron)('1 1 1 * * *'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppService.prototype, "handleAppDayCrontab", null);
 __decorate([
-    (0, schedule_1.Cron)('* 1 * * * *'),
+    (0, schedule_1.Cron)('1 1 * * * *'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
