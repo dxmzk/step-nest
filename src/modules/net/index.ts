@@ -3,7 +3,7 @@
  * Date: 2022-01
  * 网络请求封装
  */
-import { requestHeader, requestParams, requestHost, ENV_CONST } from './config';
+import { requestHeader, requestParams, requestHost } from './config';
 import { network } from './axios';
 
 export interface Result {
@@ -14,14 +14,13 @@ export interface Result {
 }
 
 // 网络请求
-export function request({host = 'base', url = '', method = 'GET', data = {}, headers = {}, toast = true, loading = true, loadStr = '加载中...' } = {}): Promise<Result> {
+export function request({host = 'base', url = '', method = 'GET', data = {}, headers = {} } = {}): Promise<Result> {
 
-  loading && _showLoading(loading, loadStr); // 加载框
   const baseURL = requestHost(host); // 地址拼接
   headers = requestHeader(headers); // 请求头处理
   data = requestParams(data); // 参数处理
 
-  const options: any = { host: baseURL, url, method, headers, data }; // 参数重组
+  const options: any = { baseURL, url, method, headers, data }; // 参数重组
 
   _pointLog('-----------> Request <-----------', options);
   return new Promise((resolve) => {
@@ -39,11 +38,6 @@ export function request({host = 'base', url = '', method = 'GET', data = {}, hea
       _pointLog('-----------> Error <-----------', err);
       _parseError(err, result)
       resolve(result);
-    }).finally(() => {
-      loading && _showLoading(false);
-      if (toast && result.code != 0) {
-        _showToast(result.message);
-      }
     })
   });
 }
@@ -68,25 +62,10 @@ function _parseError(data: any, result: Result) {
   // return result;
 }
 
-// toast
-function _showToast(title = '', icon = 'none') {
-  console.log(title, icon);
-}
-// 加载框
-function _showLoading(loading: boolean, title = '加载中...') {
-
-  if (loading) {
-    // 显示
-    console.log(title);
-  } else {
-    // 隐藏
-  }
-}
-
 // 日志
 function _pointLog(tag: string, msg: string) {
-  if (ENV_CONST.env != 'prod') {
-    console.log(tag);
-    console.log(msg);
-  }
+  // if (ENV_CONST.env != 'prod') {
+  //   console.log(tag);
+  //   console.log(msg);
+  // }
 }

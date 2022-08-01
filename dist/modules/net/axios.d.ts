@@ -1,6 +1,2 @@
-import { AxiosRequestConfig } from 'axios';
-interface Option<D = any> extends AxiosRequestConfig<any> {
-    host?: string;
-}
-export declare function network(options: Option): Promise<any>;
-export {};
+import { AxiosRequestConfig } from "axios";
+export declare function network(options: AxiosRequestConfig): Promise<any>;

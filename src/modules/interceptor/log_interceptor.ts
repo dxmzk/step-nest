@@ -16,14 +16,14 @@ import { tap } from "rxjs/operators";
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log("LogInterceptor Before...");
+    console.log("LogInterceptor Start...");
     // console.log(context.switchToHttp().getRequest()); // 参数获取
     // console.log(context.getHandler()[0]); // 方法返回对将要调用的处理程序的引用
 
     const now = Date.now();
 
     return next.handle().pipe(tap((res) => {
-      console.log(`LogInterceptor After... ${Date.now() - now}ms` );
+      console.log(`LogInterceptor End... ${Date.now() - now}ms` );
       // console.log(res.data)
      }));
   }

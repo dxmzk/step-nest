@@ -8,7 +8,7 @@ function request({ host = 'base', url = '', method = 'GET', data = {}, headers =
     const baseURL = (0, config_1.requestHost)(host);
     headers = (0, config_1.requestHeader)(headers);
     data = (0, config_1.requestParams)(data);
-    const options = { host: baseURL, url, method, headers, data };
+    const options = { baseURL, url, method, headers, data };
     _pointLog('-----------> Request <-----------', options);
     return new Promise((resolve) => {
         let result = { message: '', code: -1, data: null, header: {} };
@@ -61,9 +61,5 @@ function _showLoading(loading, title = '加载中...') {
     }
 }
 function _pointLog(tag, msg) {
-    if (config_1.ENV_CONST.env != 'prod') {
-        console.log(tag);
-        console.log(msg);
-    }
 }
 //# sourceMappingURL=index.js.map
