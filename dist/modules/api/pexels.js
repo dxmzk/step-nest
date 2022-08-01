@@ -4,7 +4,7 @@ exports.getPhotoInfo = exports.getHotPhotos = exports.searchPhotos = exports.que
 const index_1 = require("../net/index");
 function queryPhotos(page = 1, size = 20) {
     return (0, index_1.request)({
-        path: `/curated?page=${page}&per_page=${size}`,
+        url: `/curated?page=${page}&per_page=${size}`,
         method: "GET",
         host: 'pexels'
     });
@@ -12,15 +12,15 @@ function queryPhotos(page = 1, size = 20) {
 exports.queryPhotos = queryPhotos;
 function searchPhotos(key = "nature", page = 1, size = 20) {
     return (0, index_1.request)({
-        path: `/search?query=${key}&page=${page}&per_page=${size}`,
+        url: `/search?query=${key}&page=${page}&per_page=${size}`,
         method: "GET",
         host: 'pexels'
     });
 }
 exports.searchPhotos = searchPhotos;
-function getHotPhotos(page = 1) {
+function getHotPhotos(page = 20) {
     return (0, index_1.request)({
-        path: `/curated?per_page=${page}`,
+        url: `/curated?per_page=${page}`,
         method: "GET",
         host: 'pexels'
     });
@@ -28,7 +28,7 @@ function getHotPhotos(page = 1) {
 exports.getHotPhotos = getHotPhotos;
 function getPhotoInfo(id = 1) {
     return (0, index_1.request)({
-        path: `/photos/${id}`,
+        url: `/photos/${id}`,
         method: "GET",
         host: 'pexels'
     });

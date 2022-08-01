@@ -24,7 +24,7 @@ export class LogInterceptor implements NestInterceptor {
 
     return next.handle().pipe(tap((res) => {
       console.log(`LogInterceptor After... ${Date.now() - now}ms` );
-      console.log(res)
+      // console.log(res.data)
      }));
   }
 }

@@ -13,9 +13,7 @@ interface Option extends RequestInit  {
 
 // 请求
 export function network(options: Option): Promise<any> {
-  if(options.method == 'GET') {
-    delete options.body;
-  }
+  
   return fetch(options.url, options)
     .then((data) => data.json());
 }

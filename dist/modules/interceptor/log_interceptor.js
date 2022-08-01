@@ -15,7 +15,6 @@ let LogInterceptor = class LogInterceptor {
         const now = Date.now();
         return next.handle().pipe((0, operators_1.tap)((res) => {
             console.log(`LogInterceptor After... ${Date.now() - now}ms`);
-            console.log(res);
         }));
     }
 };

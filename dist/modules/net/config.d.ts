@@ -8,10 +8,7 @@ export declare const ENV_CONST: {
     AMAP: string;
     env: ENV_NAME;
 };
-export declare function requestHost(host?: string): any;
-export declare function requestHeader(header?: {}): {
-    Authorization: string;
-    token: string;
-};
-export declare function requestParams(params?: {}): {};
+export declare function requestHost(host?: string): string;
+export declare function requestHeader(header?: {}): any;
+export declare function requestParams(params?: {}): any;
 export {};

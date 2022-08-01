@@ -4,7 +4,7 @@
  * 网络请求封装
  */
 import { requestHeader, requestParams, requestHost, ENV_CONST } from './config';
-import { network } from './fetch';
+import { network } from './axios';
 
 export interface Result {
   message: string;
@@ -14,30 +14,30 @@ export interface Result {
 }
 
 // 网络请求
-export function request({host = 'base', path = '', method = 'GET', data = {}, headers = {}, toast = true, loading = true, loadStr = '加载中...' } = {}): Promise<Result> {
+export function request({host = 'base', url = '', method = 'GET', data = {}, headers = {}, toast = true, loading = true, loadStr = '加载中...' } = {}): Promise<Result> {
 
   loading && _showLoading(loading, loadStr); // 加载框
-  const url = requestHost(host) + path; // 地址拼接
+  const baseURL = requestHost(host); // 地址拼接
   headers = requestHeader(headers); // 请求头处理
   data = requestParams(data); // 参数处理
 
-  const options: any = { url, method, headers, path, body: data }; // 参数重组
+  const options: any = { host: baseURL, url, method, headers, data }; // 参数重组
 
   _pointLog('-----------> Request <-----------', options);
   return new Promise((resolve) => {
     let result: Result = { message: '', code: -1, data: null, header: {} };
     network(options).then((res) => {
       _pointLog('-----------> Response <-----------', res.data);
-      if (res.statusCode == 200) {
-        result = _parseData(res, result)
+      if (res.status == 200) {
+        _parseData(res, result);
         resolve(result);
       } else {
-        result = _parseError(res, result)
+         _parseError(res, result)
         resolve(result);
       }
     }).catch((err) => {
       _pointLog('-----------> Error <-----------', err);
-      result = _parseError(err, result)
+      _parseError(err, result)
       resolve(result);
     }).finally(() => {
       loading && _showLoading(false);
@@ -49,15 +49,15 @@ export function request({host = 'base', path = '', method = 'GET', data = {}, he
 }
 
 // 解析response
-function _parseData(res: any, result: Result): Result {
+function _parseData(res: any, result: Result) {
   result.data = res.data;
   result.header = res.header;
   result.code = 0;
-  return result;
+  // return result;
 }
 
 // 解析错误
-function _parseError(data: any, result: Result): Result {
+function _parseError(data: any, result: Result) {
   if (data.statusCode) {
     result.code = data.statusCode;
     result.message = data.errMsg;
@@ -65,7 +65,7 @@ function _parseError(data: any, result: Result): Result {
     result.code = -10101;
     result.message = data.errMsg;
   }
-  return result;
+  // return result;
 }
 
 // toast

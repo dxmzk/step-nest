@@ -39,8 +39,10 @@ let BookService = class BookService {
         return AppResult_1.default.succee("");
     }
     async queryBookUrl(id) {
-        const res = await (0, pexels_1.getHotPhotos)(1);
-        return AppResult_1.default.succee(res);
+        const { code, data } = await (0, pexels_1.getHotPhotos)(20);
+        if (code == 0) {
+        }
+        return AppResult_1.default.succee(data);
     }
     async queryHotBooks() {
         return AppResult_1.default.succee("");

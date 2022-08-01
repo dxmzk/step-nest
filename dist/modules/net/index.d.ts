@@ -4,9 +4,9 @@ export interface Result {
     data: any;
     header?: any;
 }
-export declare function request({ host, path, method, data, headers, toast, loading, loadStr }?: {
+export declare function request({ host, url, method, data, headers, toast, loading, loadStr }?: {
     host?: string;
-    path?: string;
+    url?: string;
     method?: string;
     data?: {};
     headers?: {};

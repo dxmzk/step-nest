@@ -4,26 +4,28 @@
  * Desc: 
  */
 
-//  import axios from 'axios';
+ import axios, { AxiosRequestConfig } from 'axios';
 
-//  const instance = axios.create({
-//    // baseURL: '',
-//    timeout: 20000, // 毫秒
-//    headers: { 'Content-Type': 'application/json; charset=utf-8'}
-//  });
+ interface Option<D = any> extends AxiosRequestConfig<any>  {
+  host?: string;
+}
+
+ const instance = axios.create({
+   // baseURL: '',
+   timeout: 20000, // 毫秒
+   headers: { 'Content-Type': 'application/json; charset=utf-8'}
+ });
  
 //  // 请求实体
- export function network(options: {}) {
- 
-  //  instance.defaults.headers = options.headers;
- 
-  //  return new Promise((resolve, reject) => {
-  //    instance.request(options).then((response) => {
-  //      resolve(response);
-  //    }).catch((err) => {
-  //      reject(err);
-  //    })
-  //  });
+ export function network(options: Option): Promise<any> {
+   instance.defaults.baseURL = options.host;
+   return new Promise((resolve, reject) => {
+     instance.request(options).then((response) => {
+       resolve(response);
+     }).catch((err) => {
+       reject(err);
+     })
+   });
  }
  
 //  // 请求实体

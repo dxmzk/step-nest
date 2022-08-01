@@ -54,9 +54,11 @@ export class BookService {
 
   // 获取图书下载地址
   async queryBookUrl(id: number): Promise<AppResult> {
-    const res = await getHotPhotos(1);
-    
-    return AppResult.succee(res);
+    const {code, data} = await getHotPhotos(20);
+    if(code == 0) {
+
+    }
+    return AppResult.succee(data);
   }
 
   // 获取热销

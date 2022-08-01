@@ -2,14 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.download = exports.network = void 0;
 function network(options) {
-    if (options.method == 'GET') {
-        delete options.body;
-    }
     return fetch(options.url, options)
-        .then((data) => {
-        console.log('------------>');
-        return data.json();
-    });
+        .then((data) => data.json());
 }
 exports.network = network;
 function download(options) {

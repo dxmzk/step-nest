@@ -18,13 +18,13 @@ export const ENV_CONST = {
   // env: ENV_NAME.DEV,
 }
 
-export function requestHost(host = 'base') {
+export function requestHost(host = 'base'): string {
   const env = ENV_CONST.env;
   const url = _ENV_HOST[env][host];
   return url;
 }
 
-export function requestHeader(header = {}) {
+export function requestHeader(header = {}): any {
   return {
     ...header,
     Authorization: ENV_CONST.PKEY,
@@ -32,7 +32,7 @@ export function requestHeader(header = {}) {
   };
 }
 
-export function requestParams(params = {}) {
+export function requestParams(params = {}): any {
   return {
     ...params,
   };
