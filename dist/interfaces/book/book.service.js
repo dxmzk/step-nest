@@ -38,7 +38,8 @@ let BookService = class BookService {
     async deleteOrDown(id) {
         return AppResult_1.default.succee("");
     }
-    async queryBookUrl(id) {
+    async queryBookUrl(param) {
+        console.log(param);
         const { code, data } = await (0, pexels_1.getHotPhotos)(20);
         if (code == 0) {
         }

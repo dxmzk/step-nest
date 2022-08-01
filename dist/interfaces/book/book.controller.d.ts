@@ -9,8 +9,8 @@ export declare class BookController {
     queryDetail(id: number): Promise<AppResult>;
     createBook(body: BookBody): Promise<AppResult>;
     updateBook(): Promise<AppResult>;
-    deleteOrDown(id: number): Promise<AppResult>;
-    queryBookUrl(id: number): Promise<AppResult>;
+    changeStatus(id: number): Promise<AppResult>;
+    queryBookUrl(param: any): Promise<AppResult>;
     queryHotBooks(): Promise<AppResult>;
     querySimilarBook(type: number): Promise<AppResult>;
 }

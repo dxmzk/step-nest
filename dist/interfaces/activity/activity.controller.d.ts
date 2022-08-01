@@ -7,7 +7,7 @@ export declare class ActivityController {
     queryDetail(id: number): void;
     createActivity(): void;
     upadteActivity(): void;
-    deleteOrDown(id: number): void;
+    changeActivity(id: number): void;
     createTag(): void;
     upadteTag(): void;
     deleteTag(id: number): void;

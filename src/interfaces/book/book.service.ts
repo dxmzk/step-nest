@@ -53,7 +53,8 @@ export class BookService {
   }
 
   // 获取图书下载地址
-  async queryBookUrl(id: number): Promise<AppResult> {
+  async queryBookUrl(param: any): Promise<AppResult> {
+    console.log(param)
     const {code, data} = await getHotPhotos(20);
     if(code == 0) {
 

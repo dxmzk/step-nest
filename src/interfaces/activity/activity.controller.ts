@@ -4,7 +4,7 @@
  * Desc: 
  */
 
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import AppResult from 'src/modules/AppResult';
 import { ActivityService } from './activity.service';
 
@@ -37,8 +37,8 @@ export class ActivityController {
 
   // 删除/撤销活动
   // 创建/更新活动
-  @Get('delete_or_down')
-  deleteOrDown(@Query('id') id: number) {
+  @Post('change')
+  changeActivity(@Param('id') id: number) {
 
   }
 

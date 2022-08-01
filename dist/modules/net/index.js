@@ -3,8 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.request = void 0;
 const config_1 = require("./config");
 const axios_1 = require("./axios");
-function request({ host = 'base', url = '', method = 'GET', data = {}, headers = {}, toast = true, loading = true, loadStr = '加载中...' } = {}) {
-    loading && _showLoading(loading, loadStr);
+function request({ host = 'base', url = '', method = 'GET', data = {}, headers = {} } = {}) {
     const baseURL = (0, config_1.requestHost)(host);
     headers = (0, config_1.requestHeader)(headers);
     data = (0, config_1.requestParams)(data);
@@ -26,11 +25,6 @@ function request({ host = 'base', url = '', method = 'GET', data = {}, headers =
             _pointLog('-----------> Error <-----------', err);
             _parseError(err, result);
             resolve(result);
-        }).finally(() => {
-            loading && _showLoading(false);
-            if (toast && result.code != 0) {
-                _showToast(result.message);
-            }
         });
     });
 }
@@ -48,16 +42,6 @@ function _parseError(data, result) {
     else if (data.errMsg) {
         result.code = -10101;
         result.message = data.errMsg;
-    }
-}
-function _showToast(title = '', icon = 'none') {
-    console.log(title, icon);
-}
-function _showLoading(loading, title = '加载中...') {
-    if (loading) {
-        console.log(title);
-    }
-    else {
     }
 }
 function _pointLog(tag, msg) {

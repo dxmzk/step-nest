@@ -38,11 +38,11 @@ let BookController = class BookController {
     updateBook() {
         return this.appService.updateBook();
     }
-    deleteOrDown(id) {
+    changeStatus(id) {
         return this.appService.deleteOrDown(id);
     }
-    queryBookUrl(id) {
-        return this.appService.queryBookUrl(id);
+    queryBookUrl(param) {
+        return this.appService.queryBookUrl(param);
     }
     queryHotBooks() {
         return this.appService.queryHotBooks();
@@ -77,25 +77,26 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "updateBook", null);
 __decorate([
-    (0, common_1.Get)("delete_or_down"),
+    (0, common_1.Get)("change"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], BookController.prototype, "deleteOrDown", null);
+], BookController.prototype, "changeStatus", null);
 __decorate([
-    (0, common_1.Get)("book_url"),
+    (0, common_1.Get)("book_url:id"),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "queryBookUrl", null);
 __decorate([
-    (0, common_1.Post)("hot_books"),
+    (0, common_1.Post)("book_hot"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "queryHotBooks", null);
 __decorate([
-    (0, common_1.Get)("similar_books"),
+    (0, common_1.Get)("book_similar"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)

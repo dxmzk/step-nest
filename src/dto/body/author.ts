@@ -5,25 +5,25 @@
  */
 
 export class Author {
-  name: string;
-  desc: string; // 简介
-  icon: string; // 头像
-  about: string; // 关于
-  link: string; // 链接
-  tag: number; // 标记
-  classify: number; // 类型
-  birth: string; // 出生日期
+  readonly name: string;
+  readonly desc: string; // 简介
+  readonly icon: string; // 头像
+  readonly about: string; // 关于
+  readonly link: string; // 链接
+  readonly tag: number; // 标记
+  readonly classify: number; // 类型
+  readonly birth: string; // 出生日期
 }
 
 export class Book {
-  name: string; // 书名
-  desc: string; // 简介
-  author: string; // 作者
-  cover: string; // 封面
-  about: string; // 导读
-  format: number; // 格式
-  tag: number; // 标记 
-  classify: number; // 类型
-  star: number; // 推荐星级
-  price: number; // 价格
+  readonly name: string; // 书名
+  readonly desc: string; // 简介
+  readonly author: string; // 作者
+  readonly cover: string; // 封面
+  readonly about: string; // 导读
+  readonly format: number; // 格式
+  readonly tag: number; // 标记 
+  readonly classify: number; // 类型
+  readonly star: number; // 推荐星级
+  readonly price: number; // 价格
 }

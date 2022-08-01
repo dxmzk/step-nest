@@ -3,7 +3,7 @@
  * Create Date: 2022-03
  * Desc:
  */
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Redirect } from "@nestjs/common";
 import { BookBody } from "src/dto/body/book";
 import { ListBody } from "src/dto/body/list_body";
 import AppResult from "src/modules/AppResult";
@@ -44,26 +44,27 @@ export class BookController {
     return this.appService.updateBook();
   }
 
-  // 删除/撤销
-  @Get("delete_or_down")
-  deleteOrDown(id: number): Promise<AppResult> {
+  // 修改图书状态 删除/撤销
+  @Get("change")
+  changeStatus(id: number): Promise<AppResult> {
     return this.appService.deleteOrDown(id);
   }
 
   // 获取图书下载地址
   @Get("book_url")
-  queryBookUrl(id: number): Promise<AppResult> {
-    return this.appService.queryBookUrl(id);
+  queryBookUrl(@Param() param): Promise<AppResult> {
+    return this.appService.queryBookUrl(param);
   }
 
   // 获取热销
-  @Post("hot_books")
+  @Post("book_hot")
+  // @Redirect('https://docs.nestjs.com', 301)
   queryHotBooks(): Promise<AppResult> {
     return this.appService.queryHotBooks();
   }
 
   // 获取相似
-  @Get("similar_books")
+  @Get("book_similar")
   querySimilarBook(type: number): Promise<AppResult> {
     return this.appService.querySimilarBook(type);
   }

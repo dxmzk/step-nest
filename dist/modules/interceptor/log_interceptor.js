@@ -11,10 +11,10 @@ const common_1 = require("@nestjs/common");
 const operators_1 = require("rxjs/operators");
 let LogInterceptor = class LogInterceptor {
     intercept(context, next) {
-        console.log("LogInterceptor Before...");
+        console.log("LogInterceptor Start...");
         const now = Date.now();
         return next.handle().pipe((0, operators_1.tap)((res) => {
-            console.log(`LogInterceptor After... ${Date.now() - now}ms`);
+            console.log(`LogInterceptor End... ${Date.now() - now}ms`);
         }));
     }
 };

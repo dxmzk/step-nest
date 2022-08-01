@@ -28,7 +28,7 @@ let ActivityController = class ActivityController {
     }
     upadteActivity() {
     }
-    deleteOrDown(id) {
+    changeActivity(id) {
     }
     createTag() {
     }
@@ -63,12 +63,12 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ActivityController.prototype, "upadteActivity", null);
 __decorate([
-    (0, common_1.Get)('delete_or_down'),
-    __param(0, (0, common_1.Query)('id')),
+    (0, common_1.Post)('change'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
-], ActivityController.prototype, "deleteOrDown", null);
+], ActivityController.prototype, "changeActivity", null);
 __decorate([
     (0, common_1.Post)('create_tag'),
     __metadata("design:type", Function),
