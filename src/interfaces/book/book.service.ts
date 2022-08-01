@@ -10,6 +10,7 @@ import { ListBody } from "src/dto/body/list_body";
 import { Book } from "src/dto/entity/book.entity";
 import AppResult from "src/modules/AppResult";
 import Errors from "src/modules/exception/Error";
+import {getHotPhotos} from "src/modules/api/pexels";
 
 @Injectable()
 export class BookService {
@@ -53,7 +54,9 @@ export class BookService {
 
   // 获取图书下载地址
   async queryBookUrl(id: number): Promise<AppResult> {
-    return AppResult.succee("");
+    const res = await getHotPhotos(1);
+    
+    return AppResult.succee(res);
   }
 
   // 获取热销

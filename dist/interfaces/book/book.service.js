@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const app_sql_source_1 = require("../../config/app_sql_source");
 const book_entity_1 = require("../../dto/entity/book.entity");
 const AppResult_1 = require("../../modules/AppResult");
+const pexels_1 = require("../../modules/api/pexels");
 let BookService = class BookService {
     async queryBooks(body) {
         const start = (body.pageNum || 0) * (body.pageSize || 10);
@@ -38,7 +39,8 @@ let BookService = class BookService {
         return AppResult_1.default.succee("");
     }
     async queryBookUrl(id) {
-        return AppResult_1.default.succee("");
+        const res = await (0, pexels_1.getHotPhotos)(1);
+        return AppResult_1.default.succee(res);
     }
     async queryHotBooks() {
         return AppResult_1.default.succee("");
