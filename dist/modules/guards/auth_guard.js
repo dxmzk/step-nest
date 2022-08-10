@@ -16,8 +16,14 @@ let AuthGuard = class AuthGuard {
     _validateRequest(request) {
         console.log('================>AuthGuard validateRequest');
         console.log(request.url);
-        console.log(request.params);
-        throw new common_1.UnauthorizedException();
+        throw new common_1.UnauthorizedException('请登录账号', '账户不存在');
+        return this._parseToken(request.headers);
+    }
+    _parseToken(headers) {
+        if (headers && headers.token) {
+            console.log(headers.token);
+            return true;
+        }
         return false;
     }
 };

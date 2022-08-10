@@ -3,14 +3,16 @@
  * Create Date: 2022-03
  * Desc:
  */
-import { Body, Controller, Get, Header, Post, Query, Request } from '@nestjs/common';
+import { Body, Controller, Get, Header, Post, Query, Request, UseGuards } from '@nestjs/common';
 import { AccountService } from './account.service';
 import AppResult from '../../modules/AppResult';
 import { LoginBody, RegisterBody } from '../../dto/body/index';
 import Errors from 'src/modules/exception/Error';
 import { parasToken } from 'src/utils/user_utils';
+import { AuthGuard } from 'src/modules/guards/auth_guard';
 
 @Controller('account')
+@UseGuards(AuthGuard)
 export class AccountController {
   constructor(private readonly appService: AccountService) {}
 

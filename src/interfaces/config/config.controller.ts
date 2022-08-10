@@ -9,7 +9,7 @@ import { AuthGuard } from "src/modules/guards/auth_guard";
 import { ConfigService } from "./config.service";
 
 @Controller("config")
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class ConfigController {
   constructor(private readonly appService: ConfigService) {}
 

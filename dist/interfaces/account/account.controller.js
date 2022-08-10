@@ -18,6 +18,7 @@ const account_service_1 = require("./account.service");
 const index_1 = require("../../dto/body/index");
 const Error_1 = require("../../modules/exception/Error");
 const user_utils_1 = require("../../utils/user_utils");
+const auth_guard_1 = require("../../modules/guards/auth_guard");
 let AccountController = class AccountController {
     constructor(appService) {
         this.appService = appService;
@@ -117,6 +118,7 @@ __decorate([
 ], AccountController.prototype, "getUsers", null);
 AccountController = __decorate([
     (0, common_1.Controller)('account'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [account_service_1.AccountService])
 ], AccountController);
 exports.AccountController = AccountController;

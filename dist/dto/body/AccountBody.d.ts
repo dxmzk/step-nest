@@ -1,13 +1,13 @@
 export declare class LoginBody {
-    email?: string;
-    phone?: string;
-    name?: string;
-    password?: string;
-    mode: number;
+    readonly email?: string;
+    readonly phone?: string;
+    readonly name?: string;
+    readonly password?: string;
+    readonly mode: number;
 }
 export declare class RegisterBody {
-    email: string;
-    password: string;
-    code: number;
-    name: string;
+    readonly email: string;
+    readonly password: string;
+    readonly code: number;
+    readonly name: string;
 }

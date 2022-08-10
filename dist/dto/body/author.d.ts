@@ -1,22 +1,22 @@
 export declare class Author {
-    name: string;
-    desc: string;
-    icon: string;
-    about: string;
-    link: string;
-    tag: number;
-    classify: number;
-    birth: string;
+    readonly name: string;
+    readonly desc: string;
+    readonly icon: string;
+    readonly about: string;
+    readonly link: string;
+    readonly tag: number;
+    readonly classify: number;
+    readonly birth: string;
 }
 export declare class Book {
-    name: string;
-    desc: string;
-    author: string;
-    cover: string;
-    about: string;
-    format: number;
-    tag: number;
-    classify: number;
-    star: number;
-    price: number;
+    readonly name: string;
+    readonly desc: string;
+    readonly author: string;
+    readonly cover: string;
+    readonly about: string;
+    readonly format: number;
+    readonly tag: number;
+    readonly classify: number;
+    readonly star: number;
+    readonly price: number;
 }

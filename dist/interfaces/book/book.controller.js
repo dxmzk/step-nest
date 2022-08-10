@@ -83,7 +83,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "changeStatus", null);
 __decorate([
-    (0, common_1.Get)("book_url:id"),
+    (0, common_1.Get)("book_url"),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

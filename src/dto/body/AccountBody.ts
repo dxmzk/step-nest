@@ -9,7 +9,7 @@ export class LoginBody {
   readonly phone?: string; // 手机号
   readonly name?: string; // 手机号
   readonly password?: string; // 密码
-  readonly mode = 0; // 登录模式 0：邮箱；1：uid;2：手机
+  readonly mode: number; // 登录模式 0：邮箱；1：uid;2：手机
 }
 
 export class RegisterBody {
