@@ -9,6 +9,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import fastifyCompress from '@fastify/compress';
+import fastifyRateLimit from '@fastify/rate-limit';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { AppModule } from './app.module';
 import constants from './config/constants';
@@ -26,6 +27,7 @@ async function bootstrap() {
   app.register(fastifyCompress, { encodings: ['gzip', 'deflate'] }); // 压缩功能
   app.useGlobalInterceptors(new LogInterceptor()); // 全局日志拦截器
   app.useWebSocketAdapter(new WsAdapter(app)); // WebSocket
+  // app.use(fastifyRateLimit()); // 为了保护您的应用程序免受暴力攻击，您必须实现某种速率限制
   await app.listen(constants.port);
 }
 

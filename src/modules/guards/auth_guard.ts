@@ -23,15 +23,18 @@ export class AuthGuard implements CanActivate {
 
   // 校验是否等录或者登录过期
   private _validateRequest(request: any): boolean {
-    console.log('================>AuthGuard validateRequest');
-    console.log(request.url);
+    // console.log('================>AuthGuard validateRequest');
+    // console.log(request.url);
     // console.log(request.params);
     
 //      返回 false 的守卫会抛出一个 HttpException 异常。{"statusCode": 403,"message": "Forbidden resource"}
 
 //      如果您想要向最终用户返回不同的错误响应，你应该抛出一个异常。
 //      throw new UnauthorizedException(); // 由守卫引发的任何异常都将由异常层(全局异常过滤器和应用于当前上下文的任何异常过滤器)处理
-
+    const url: string = request.url;
+    if(url.includes('/account/login?') || url.includes('/account/register?')) {
+      return true;
+    }
     return this._parseToken(request.headers);
   }
 

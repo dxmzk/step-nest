@@ -14,8 +14,10 @@ let AuthGuard = class AuthGuard {
         return this._validateRequest(request);
     }
     _validateRequest(request) {
-        console.log('================>AuthGuard validateRequest');
-        console.log(request.url);
+        const url = request.url;
+        if (url.includes('/account/login?') || url.includes('/account/register?')) {
+            return true;
+        }
         return this._parseToken(request.headers);
     }
     _parseToken(headers) {

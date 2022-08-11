@@ -6,7 +6,7 @@
 import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
 import { Cache } from "cache-manager";
 // import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from "typeorm";
+// import { Repository } from "typeorm";
 
 import { LoginBody, RegisterBody } from "../../dto/body/index";
 import { User } from "../../dto/entity/user.entity";
