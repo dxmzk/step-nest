@@ -14,37 +14,75 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UploadController = void 0;
 const common_1 = require("@nestjs/common");
+const fs_1 = require("fs");
+const path_1 = require("path");
 const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const path = require("path");
 let UploadController = class UploadController {
-    async uploadFile(upload, req) {
-        const { filename, path, mimetype } = upload;
-        upload.uploaded = 1;
-        upload.url = path.replace('public/', 'http://localhost:3000/');
-        upload.fileName = filename;
-        return upload;
+    uploadFile(file) {
+        console.log(file);
+    }
+    uploadFiles(files) {
+        console.log(files);
+    }
+    uploadFileFields(files) {
+        console.log(files);
+    }
+    uploadAnyFile(files) {
+        console.log(files);
+    }
+    getFile(res) {
+        const file = (0, fs_1.createReadStream)((0, path_1.join)(process.cwd(), 'package.json'));
+        res.set({
+            'Content-Type': 'application/json',
+            'Content-Disposition': 'attachment; filename="package.json"',
+        });
+        return new common_1.StreamableFile(file);
     }
 };
 __decorate([
-    (0, common_1.Post)(),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('upload', {
-        storage: (0, multer_1.diskStorage)({
-            destination: `./uploads/`,
-            filename: (_req, file, cb) => {
-                file = file.upload ? file.upload : file;
-                return cb(null, Date.now() + path.extname(file.originalname));
-            },
-        }),
-    })),
+    (0, common_1.Post)("file"),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file")),
     __param(0, (0, common_1.UploadedFile)()),
-    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
 ], UploadController.prototype, "uploadFile", null);
+__decorate([
+    (0, common_1.Post)("files"),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)("files")),
+    __param(0, (0, common_1.UploadedFiles)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", void 0)
+], UploadController.prototype, "uploadFiles", null);
+__decorate([
+    (0, common_1.Post)("upload"),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([
+        { name: "avatar", maxCount: 1 },
+        { name: "background", maxCount: 1 },
+    ])),
+    __param(0, (0, common_1.UploadedFiles)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UploadController.prototype, "uploadFileFields", null);
+__decorate([
+    (0, common_1.Post)('upload'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.AnyFilesInterceptor)()),
+    __param(0, (0, common_1.UploadedFiles)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", void 0)
+], UploadController.prototype, "uploadAnyFile", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Response)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", common_1.StreamableFile)
+], UploadController.prototype, "getFile", null);
 UploadController = __decorate([
-    (0, common_1.Controller)('/upload')
+    (0, common_1.Controller)("/upload")
 ], UploadController);
 exports.UploadController = UploadController;
 //# sourceMappingURL=upload.controller.js.map

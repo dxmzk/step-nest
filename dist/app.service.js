@@ -16,8 +16,11 @@ let AppService = class AppService {
     handleAppDayCrontab() {
         console.log('============> handleAppDayCrontab');
     }
-    handleAppHourCrontab() {
-        console.log('============> handleAppHourCrontab', Date.now());
+    handleAppHourCron() {
+        console.log('============> handleAppHourCron', Date.now());
+    }
+    handleMinuteCron() {
+        console.log('============> handleMinuteCron', Date.now());
     }
 };
 __decorate([
@@ -31,7 +34,13 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], AppService.prototype, "handleAppHourCrontab", null);
+], AppService.prototype, "handleAppHourCron", null);
+__decorate([
+    (0, schedule_1.Cron)('59 * * * * *'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppService.prototype, "handleMinuteCron", null);
 AppService = __decorate([
     (0, common_1.Injectable)()
 ], AppService);

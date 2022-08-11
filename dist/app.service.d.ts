@@ -1,4 +1,5 @@
 export declare class AppService {
     handleAppDayCrontab(): void;
-    handleAppHourCrontab(): void;
+    handleAppHourCron(): void;
+    handleMinuteCron(): void;
 }

@@ -8,6 +8,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import fastifyCompress from '@fastify/compress';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { AppModule } from './app.module';
 import constants from './config/constants';
@@ -22,7 +23,8 @@ async function bootstrap() {
   );
   // app.useGlobalFilters(new AppExceptionFilter()); // 全局服务错误处理
   // app.useGlobalGuards(new RoleGuard()); // 全局角色守卫
-  app.useGlobalInterceptors(new LogInterceptor()); // 全局日志拦截器。
+  app.register(fastifyCompress, { encodings: ['gzip', 'deflate'] }); // 压缩功能
+  app.useGlobalInterceptors(new LogInterceptor()); // 全局日志拦截器
   app.useWebSocketAdapter(new WsAdapter(app)); // WebSocket
   await app.listen(constants.port);
 }
