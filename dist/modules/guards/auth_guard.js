@@ -16,7 +16,6 @@ let AuthGuard = class AuthGuard {
     _validateRequest(request) {
         console.log('================>AuthGuard validateRequest');
         console.log(request.url);
-        throw new common_1.UnauthorizedException('请登录账号', '账户不存在');
         return this._parseToken(request.headers);
     }
     _parseToken(headers) {
@@ -24,7 +23,7 @@ let AuthGuard = class AuthGuard {
             console.log(headers.token);
             return true;
         }
-        return false;
+        throw new common_1.UnauthorizedException('登录超时，请重新登录！', '账户不存在');
     }
 };
 AuthGuard = __decorate([

@@ -29,6 +29,9 @@ let AccountController = class AccountController {
     onLogin(body) {
         return this.appService.onLogin(body);
     }
+    onCode(tag) {
+        return this.appService.onCode(tag);
+    }
     onReset(body) {
         return this.appService.onReset(body);
     }
@@ -67,57 +70,64 @@ let AccountController = class AccountController {
     }
 };
 __decorate([
-    (0, common_1.Post)('register'),
+    (0, common_1.Post)("register"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [index_1.RegisterBody]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "onRegister", null);
 __decorate([
-    (0, common_1.Post)('login'),
+    (0, common_1.Post)("login"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [index_1.LoginBody]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "onLogin", null);
 __decorate([
-    (0, common_1.Post)('reset'),
+    (0, common_1.Get)("code"),
+    __param(0, (0, common_1.Param)('tag')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "onCode", null);
+__decorate([
+    (0, common_1.Post)("reset"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [index_1.RegisterBody]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "onReset", null);
 __decorate([
-    (0, common_1.Header)('token', ''),
-    (0, common_1.Get)('info'),
+    (0, common_1.Header)("token", ""),
+    (0, common_1.Get)("info"),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "queryUserInfo", null);
 __decorate([
-    (0, common_1.Get)('logout'),
+    (0, common_1.Get)("logout"),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "onLogout", null);
 __decorate([
-    (0, common_1.Get)('delete'),
+    (0, common_1.Get)("delete"),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "onDelete", null);
 __decorate([
-    (0, common_1.Get)('users'),
-    __param(0, (0, common_1.Query)('mode')),
+    (0, common_1.Get)("users"),
+    __param(0, (0, common_1.Query)("mode")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "getUsers", null);
 AccountController = __decorate([
-    (0, common_1.Controller)('account'),
+    (0, common_1.Controller)("account"),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [account_service_1.AccountService])
 ], AccountController);

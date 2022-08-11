@@ -3,26 +3,28 @@
  * Create Date: 2022-03
  * Desc:
  */
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
+import { Cache } from "cache-manager";
 // import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository } from "typeorm";
 
-import { LoginBody, RegisterBody } from '../../dto/body/index';
-import { User } from '../../dto/entity/user.entity';
-import { Pwd } from '../../dto/entity/pwd.entity';
-import AppResult from '../../modules/AppResult';
-import Errors from '../../modules/exception/Error';
-import { createToken } from '../../utils/user_utils';
-import AppDataSource from 'src/config/app_sql_source';
+import { LoginBody, RegisterBody } from "../../dto/body/index";
+import { User } from "../../dto/entity/user.entity";
+import { Pwd } from "../../dto/entity/pwd.entity";
+import AppResult from "../../modules/AppResult";
+import Errors from "../../modules/exception/Error";
+import { createToken } from "../../utils/user_utils";
+import AppDataSource from "src/config/app_sql_source";
 
 @Injectable()
 export class AccountService {
   // constructor( @InjectRepository(User) private usersRepository: Repository<User>) {}
+  constructor(@Inject(CACHE_MANAGER) private cache: Cache) {}
 
   // 登录  验参>获取密码>对比密码>返回用户信息
   async onLogin(body: LoginBody): Promise<AppResult> {
     // 验参
-    const params: any = { };
+    const params: any = {};
     switch (body.mode) {
       case 0:
         params.email = body.email;
@@ -34,7 +36,7 @@ export class AccountService {
         params.name = body.name;
         break;
     }
-    
+
     const con = AppDataSource.getRepository(User);
     const user: User = await con.findOneBy(params);
 
@@ -44,7 +46,9 @@ export class AccountService {
 
     try {
       // 获取密码
-      const pwd = await AppDataSource.getRepository(Pwd).findOneBy({id: user.pid});
+      const pwd = await AppDataSource.getRepository(Pwd).findOneBy({
+        id: user.pid,
+      });
       if (pwd && pwd.password == body.password) {
         // 登录成功
       } else {
@@ -57,7 +61,12 @@ export class AccountService {
 
     user.token = createToken(user.uid, user.name);
 
-    con.createQueryBuilder().update(User).set({token: user.token}).where('id = :id', {id: user.id}).execute();
+    con
+      .createQueryBuilder()
+      .update(User)
+      .set({ token: user.token })
+      .where("id = :id", { id: user.id })
+      .execute();
 
     return AppResult.succee(user);
   }
@@ -68,13 +77,13 @@ export class AccountService {
     }
     const con = AppDataSource.getRepository(User);
 
-    const oneName = await con.findOneBy({name: body.name});
+    const oneName = await con.findOneBy({ name: body.name });
 
     if (oneName || oneName.uid) {
       throw Errors.ACCOUNT_REPEAT;
     }
 
-    const uid = 'A' + Date.now();
+    const uid = "A" + Date.now();
 
     const pwd: Pwd = new Pwd();
     pwd.uid = uid;
@@ -126,15 +135,22 @@ export class AccountService {
 
   // 重置密码 验证>更新>退出登录
   async onReset(body: RegisterBody): Promise<AppResult> {
-    return AppResult.succee('');
+    return AppResult.succee("");
+  }
+
+  // 获取验证码
+  async onCode(tag: string): Promise<AppResult> {
+    const code = Math.round(Math.random() * 100000);
+    this.cache.set(tag, code, { ttl: 60000 });
+    return AppResult.succee(code);
   }
 
   // 获取用户信息
   async queryUserInfo(uid: string): Promise<AppResult> {
     let user = null;
     try {
-      user = await AppDataSource.getRepository(User).findOneBy({uid});
-      if(!user || !user.id) {
+      user = await AppDataSource.getRepository(User).findOneBy({ uid });
+      if (!user || !user.id) {
         throw Errors.ACCOUNT_NOT;
       }
     } catch (error) {
@@ -152,10 +168,10 @@ export class AccountService {
       //   uid
       // });
     } catch (error) {
-      throw Errors.ACCOUNT_ERROR
+      throw Errors.ACCOUNT_ERROR;
     }
-    
-    return AppResult.succee('退出成功');
+
+    return AppResult.succee("退出成功");
   }
 
   // 删除账号
@@ -163,17 +179,17 @@ export class AccountService {
     await AppDataSource.getRepository(User)
       .createQueryBuilder()
       .delete()
-      .from(User, 'user')
-      .where('uid = :uid', { uid })
+      .from(User, "user")
+      .where("uid = :uid", { uid })
       .execute();
 
-    return AppResult.succee('');
+    return AppResult.succee("");
   }
 
   // 获取用户
   async getUsers(mode: string): Promise<AppResult> {
-    if (mode != 'abcdefg') {
-      return AppResult.succee('Are You 二傻!!!');
+    if (mode != "abcdefg") {
+      return AppResult.succee("Are You 二傻!!!");
     }
     const users = await AppDataSource.getRepository(User).find();
 

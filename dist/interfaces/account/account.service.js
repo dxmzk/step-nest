@@ -5,6 +5,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountService = void 0;
 const common_1 = require("@nestjs/common");
@@ -15,6 +21,9 @@ const Error_1 = require("../../modules/exception/Error");
 const user_utils_1 = require("../../utils/user_utils");
 const app_sql_source_1 = require("../../config/app_sql_source");
 let AccountService = class AccountService {
+    constructor(cache) {
+        this.cache = cache;
+    }
     async onLogin(body) {
         const params = {};
         switch (body.mode) {
@@ -34,7 +43,9 @@ let AccountService = class AccountService {
             throw Error_1.default.PWD_ERR;
         }
         try {
-            const pwd = await app_sql_source_1.default.getRepository(pwd_entity_1.Pwd).findOneBy({ id: user.pid });
+            const pwd = await app_sql_source_1.default.getRepository(pwd_entity_1.Pwd).findOneBy({
+                id: user.pid,
+            });
             if (pwd && pwd.password == body.password) {
             }
             else {
@@ -46,7 +57,12 @@ let AccountService = class AccountService {
             throw Error_1.default.LOGIN_ERROR;
         }
         user.token = (0, user_utils_1.createToken)(user.uid, user.name);
-        con.createQueryBuilder().update(user_entity_1.User).set({ token: user.token }).where('id = :id', { id: user.id }).execute();
+        con
+            .createQueryBuilder()
+            .update(user_entity_1.User)
+            .set({ token: user.token })
+            .where("id = :id", { id: user.id })
+            .execute();
         return AppResult_1.default.succee(user);
     }
     async onRegister(body) {
@@ -57,7 +73,7 @@ let AccountService = class AccountService {
         if (oneName || oneName.uid) {
             throw Error_1.default.ACCOUNT_REPEAT;
         }
-        const uid = 'A' + Date.now();
+        const uid = "A" + Date.now();
         const pwd = new pwd_entity_1.Pwd();
         pwd.uid = uid;
         pwd.date = Date.now();
@@ -102,7 +118,12 @@ let AccountService = class AccountService {
         return AppResult_1.default.succee(result);
     }
     async onReset(body) {
-        return AppResult_1.default.succee('');
+        return AppResult_1.default.succee("");
+    }
+    async onCode(tag) {
+        const code = Math.round(Math.random() * 100000);
+        this.cache.set(tag, code, { ttl: 60000 });
+        return AppResult_1.default.succee(code);
     }
     async queryUserInfo(uid) {
         let user = null;
@@ -123,27 +144,29 @@ let AccountService = class AccountService {
         catch (error) {
             throw Error_1.default.ACCOUNT_ERROR;
         }
-        return AppResult_1.default.succee('退出成功');
+        return AppResult_1.default.succee("退出成功");
     }
     async onDelete(uid) {
         await app_sql_source_1.default.getRepository(user_entity_1.User)
             .createQueryBuilder()
             .delete()
-            .from(user_entity_1.User, 'user')
-            .where('uid = :uid', { uid })
+            .from(user_entity_1.User, "user")
+            .where("uid = :uid", { uid })
             .execute();
-        return AppResult_1.default.succee('');
+        return AppResult_1.default.succee("");
     }
     async getUsers(mode) {
-        if (mode != 'abcdefg') {
-            return AppResult_1.default.succee('Are You 二傻!!!');
+        if (mode != "abcdefg") {
+            return AppResult_1.default.succee("Are You 二傻!!!");
         }
         const users = await app_sql_source_1.default.getRepository(user_entity_1.User).find();
         return AppResult_1.default.succee(users);
     }
 };
 AccountService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, common_1.Inject)(common_1.CACHE_MANAGER)),
+    __metadata("design:paramtypes", [Object])
 ], AccountService);
 exports.AccountService = AccountService;
 //# sourceMappingURL=account.service.js.map

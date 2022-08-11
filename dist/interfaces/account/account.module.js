@@ -14,6 +14,7 @@ let AccountModule = class AccountModule {
 };
 AccountModule = __decorate([
     (0, common_1.Module)({
+        imports: [common_1.CacheModule.register()],
         controllers: [account_controller_1.AccountController],
         providers: [account_service_1.AccountService]
     })
