@@ -19,7 +19,7 @@ import { LogInterceptor } from "./modules/interceptor/log_interceptor";
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
   const fastAda = new FastifyAdapter();
-  fastAda.register(rateLimit, { global: false, max: 30, timeWindow: 60000 }); // 请求限制，一分钟30次
+  fastAda.register(rateLimit, { global: false, max: 5000, timeWindow: 60000 }); // 请求限制，一分钟5000次
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastAda);
   // app.useGlobalFilters(new AppExceptionFilter()); // 全局服务错误处理
   // app.useGlobalGuards(new RoleGuard()); // 全局角色守卫
