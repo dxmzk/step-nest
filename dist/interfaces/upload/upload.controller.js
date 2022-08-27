@@ -14,26 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UploadController = void 0;
 const common_1 = require("@nestjs/common");
-const platform_express_1 = require("@nestjs/platform-express");
 let UploadController = class UploadController {
     uploadImg(res) {
         const multipart = res.body;
         console.log(multipart);
-    }
-    uploadFile(file) {
-        console.log(file);
-    }
-    uploadFiles(files) {
-        console.log(files);
-    }
-    uploadFileFields(files) {
-        console.log(files);
-    }
-    uploadAnyFile(files) {
-        console.log(files);
-    }
-    async testUpload() {
-        return { code: 0, message: '成功', data: '' };
     }
 };
 __decorate([
@@ -43,46 +27,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UploadController.prototype, "uploadImg", null);
-__decorate([
-    (0, common_1.Post)("file"),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file")),
-    __param(0, (0, common_1.UploadedFile)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], UploadController.prototype, "uploadFile", null);
-__decorate([
-    (0, common_1.Post)("files"),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)("files")),
-    __param(0, (0, common_1.UploadedFiles)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Array]),
-    __metadata("design:returntype", void 0)
-], UploadController.prototype, "uploadFiles", null);
-__decorate([
-    (0, common_1.Post)("uploadFields"),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([
-        { name: "avatar", maxCount: 1 },
-    ])),
-    __param(0, (0, common_1.UploadedFiles)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], UploadController.prototype, "uploadFileFields", null);
-__decorate([
-    (0, common_1.Post)('upload'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.AnyFilesInterceptor)()),
-    __param(0, (0, common_1.UploadedFiles)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Array]),
-    __metadata("design:returntype", void 0)
-], UploadController.prototype, "uploadAnyFile", null);
-__decorate([
-    (0, common_1.Get)('test'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], UploadController.prototype, "testUpload", null);
 UploadController = __decorate([
     (0, common_1.Controller)("/upload")
 ], UploadController);

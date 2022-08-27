@@ -14,27 +14,23 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileController = void 0;
 const common_1 = require("@nestjs/common");
-const fs_extra_1 = require("fs-extra");
-const path_1 = require("path");
+const fs = require('fs-extra');
 let FileController = class FileController {
-    getFile(res) {
-        const file = (0, fs_extra_1.createReadStream)((0, path_1.join)(process.cwd(), 'package.json'));
-        res.set({
-            'Content-Type': 'application/json',
-            'Content-Disposition': 'attachment; filename="package.json"',
-        });
-        return new common_1.StreamableFile(file);
+    async downloadFile(id) {
+        const res = fs.readFileSync(`/${process.cwd()}/test.png`);
+        console.log(id);
+        return new common_1.StreamableFile(res, { type: 'application/image' });
     }
 };
 __decorate([
-    (0, common_1.Get)(),
-    __param(0, (0, common_1.Response)({ passthrough: true })),
+    (0, common_1.Get)("down"),
+    __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", common_1.StreamableFile)
-], FileController.prototype, "getFile", null);
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FileController.prototype, "downloadFile", null);
 FileController = __decorate([
-    (0, common_1.Controller)('file')
+    (0, common_1.Controller)("file")
 ], FileController);
 exports.FileController = FileController;
 //# sourceMappingURL=file.controller.js.map

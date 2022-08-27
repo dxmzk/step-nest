@@ -24,11 +24,14 @@ export class UploadController {
   @Post("img")
   uploadImg(@Request() res) {
     const multipart = res.body;
-    // multipart['editormd-image-file']
     console.log(multipart);
   }
 
-  /////////////      一下都是 Express 配置 才可用的      ////////////////
+
+
+  //////////////////      以下都是 Express 配置 才可用的      //////////////////
+
+
 
   // /**
   //  * FileInterceptor() 接收两个参数：
