@@ -16,6 +16,10 @@ exports.UploadController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 let UploadController = class UploadController {
+    uploadImg(res) {
+        const multipart = res.body;
+        console.log(multipart);
+    }
     uploadFile(file) {
         console.log(file);
     }
@@ -32,6 +36,13 @@ let UploadController = class UploadController {
         return { code: 0, message: '成功', data: '' };
     }
 };
+__decorate([
+    (0, common_1.Post)("img"),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UploadController.prototype, "uploadImg", null);
 __decorate([
     (0, common_1.Post)("file"),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file")),
