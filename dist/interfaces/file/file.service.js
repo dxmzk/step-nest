@@ -6,17 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UploadModule = void 0;
+exports.FileService = void 0;
 const common_1 = require("@nestjs/common");
-const upload_controller_1 = require("./upload.controller");
-const upload_service_1 = require("./upload.service");
-let UploadModule = class UploadModule {
+let FileService = class FileService {
 };
-UploadModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [upload_controller_1.UploadController],
-        providers: [upload_service_1.UploadService],
-    })
-], UploadModule);
-exports.UploadModule = UploadModule;
-//# sourceMappingURL=upload.module.js.map
+FileService = __decorate([
+    (0, common_1.Injectable)()
+], FileService);
+exports.FileService = FileService;
+//# sourceMappingURL=file.service.js.map

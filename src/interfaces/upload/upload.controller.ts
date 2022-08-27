@@ -1,20 +1,16 @@
 /**
  * Create By: Meng
  * Create Date: 2022-
- * Desc:
+ * Desc: express配置可用，fastify不可用
  */
 import {
   Controller,
-  Get,
   Post,
   UseInterceptors,
   UploadedFile,
   UploadedFiles,
-  Response,
-  StreamableFile,
+  Get,
 } from "@nestjs/common";
-import { createReadStream } from 'fs';
-import { join } from 'path';
 import { FileInterceptor, FilesInterceptor, FileFieldsInterceptor, AnyFilesInterceptor } from "@nestjs/platform-express";
 // import { diskStorage } from 'multer';
 // import * as path from 'path';
@@ -25,7 +21,7 @@ export class UploadController {
   /**
    * FileInterceptor() 接收两个参数：
     一个 fieldName (指向包含文件的 HTML 表单的字段)
-    可选 options 对象, 类型为 MulterOptions 。这个和被传入 multer 构造函数 (此处有更多详细信息) 的对象是同一个对象。
+    可选 options 对象, 类型为 MulterOptions 。这个和被传入 multer 构造函数的对象是同一个对象。
    */
   @Post("file")
   @UseInterceptors(FileInterceptor("file"))
@@ -53,11 +49,11 @@ export class UploadController {
     options: 可选的 MulterOptions 对象，如上所述
     使用 FileFieldsInterceptor() 时，使用 @UploadedFiles() 装饰器从 request 中提取文件
    */
-  @Post("upload")
+  @Post("uploadFields")
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: "avatar", maxCount: 1 },
-      { name: "background", maxCount: 1 },
+      // { name: "background", maxCount: 1 },
     ])
   )
   uploadFileFields( @UploadedFiles() files: { avatar?: Express.Multer.File[];  background?: Express.Multer.File[]; }) {
@@ -75,21 +71,8 @@ export class UploadController {
     console.log(files);
   }
 
-  
-  /**
-   StreamableFile是一个持有要返回的流的类。
-   你可以传入一个Buffer或者Stream到StreamableFile类的构造函数来创建一个新的StreamableFile实例。
-   跨平台支持
-    默认情况下，Fastify服务器可以不通过stream.pipe(res)直接发送文件，所以你并不需要使用StreamableFile类。
-    但Nest仍然支持在所有这些类型的平台上使用StreamableFile，所以即使你需要在Express和Fastify之间切换，也不需要担心这两个引擎上的兼容性问题。
-   */
-  @Get()
-  getFile(@Response({ passthrough: true }) res): StreamableFile {
-    const file = createReadStream(join(process.cwd(), 'package.json'));
-    res.set({
-      'Content-Type': 'application/json',
-      'Content-Disposition': 'attachment; filename="package.json"',
-    });
-    return new StreamableFile(file);
+  @Get('test')
+  async testUpload(): Promise<any>{
+    return {code: 0, message: '成功', data: ''};
   }
 }

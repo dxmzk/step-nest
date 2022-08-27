@@ -14,8 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UploadController = void 0;
 const common_1 = require("@nestjs/common");
-const fs_1 = require("fs");
-const path_1 = require("path");
 const platform_express_1 = require("@nestjs/platform-express");
 let UploadController = class UploadController {
     uploadFile(file) {
@@ -30,13 +28,8 @@ let UploadController = class UploadController {
     uploadAnyFile(files) {
         console.log(files);
     }
-    getFile(res) {
-        const file = (0, fs_1.createReadStream)((0, path_1.join)(process.cwd(), 'package.json'));
-        res.set({
-            'Content-Type': 'application/json',
-            'Content-Disposition': 'attachment; filename="package.json"',
-        });
-        return new common_1.StreamableFile(file);
+    async testUpload() {
+        return { code: 0, message: '成功', data: '' };
     }
 };
 __decorate([
@@ -56,10 +49,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UploadController.prototype, "uploadFiles", null);
 __decorate([
-    (0, common_1.Post)("upload"),
+    (0, common_1.Post)("uploadFields"),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([
         { name: "avatar", maxCount: 1 },
-        { name: "background", maxCount: 1 },
     ])),
     __param(0, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
@@ -75,12 +67,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UploadController.prototype, "uploadAnyFile", null);
 __decorate([
-    (0, common_1.Get)(),
-    __param(0, (0, common_1.Response)({ passthrough: true })),
+    (0, common_1.Get)('test'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", common_1.StreamableFile)
-], UploadController.prototype, "getFile", null);
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UploadController.prototype, "testUpload", null);
 UploadController = __decorate([
     (0, common_1.Controller)("/upload")
 ], UploadController);

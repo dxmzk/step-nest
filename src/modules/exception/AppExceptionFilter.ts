@@ -18,6 +18,7 @@ export default class AppExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
+    // console.log(exception);
     // const request = ctx.getRequest<Request>();
     let code = 100101;
     let message: string = '未知异常';
@@ -25,7 +26,6 @@ export default class AppExceptionFilter implements ExceptionFilter {
       code = exception.getStatus();
       message = exception.message;
     }
-
     const result = {
       code,
       message,

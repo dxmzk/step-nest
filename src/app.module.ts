@@ -11,14 +11,15 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 
 import { AccountModule } from "./interfaces/account/account.module";
-import { MenuModule } from "./interfaces/menu/menu.module";
-import { ShopModule } from "./interfaces/shop/shop.module";
-import { BookModule } from "./interfaces/book/book.module";
 import { AuthorModule } from "./interfaces/author/author.module";
 import { ActivityModule } from "./interfaces/activity/activity.module";
-import { SystemModule } from './interfaces/system/system.module';
+import { BookModule } from "./interfaces/book/book.module";
 import { ConfigModule } from './interfaces/config/config.module';
-
+import { FileModule } from './interfaces/file/file.module';
+import { MenuModule } from "./interfaces/menu/menu.module";
+import { UploadModule } from './interfaces/upload/upload.module';
+import { ShopModule } from "./interfaces/shop/shop.module";
+import { SystemModule } from './interfaces/system/system.module';
 import { SocketModule } from './services/websocket/socket.module';
 // import Mysql from "./config/mysql";
 import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
@@ -33,10 +34,12 @@ import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
     AuthorModule,
     BookModule,
     MenuModule,
+    ConfigModule,
+    SocketModule,
+    FileModule,
+    UploadModule,
     ShopModule,
     SystemModule,
-    ConfigModule,
-    SocketModule
   ],
   controllers: [AppController],
   providers: [

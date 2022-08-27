@@ -13,13 +13,15 @@ const schedule_1 = require("@nestjs/schedule");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const account_module_1 = require("./interfaces/account/account.module");
-const menu_module_1 = require("./interfaces/menu/menu.module");
-const shop_module_1 = require("./interfaces/shop/shop.module");
-const book_module_1 = require("./interfaces/book/book.module");
 const author_module_1 = require("./interfaces/author/author.module");
 const activity_module_1 = require("./interfaces/activity/activity.module");
-const system_module_1 = require("./interfaces/system/system.module");
+const book_module_1 = require("./interfaces/book/book.module");
 const config_module_1 = require("./interfaces/config/config.module");
+const file_module_1 = require("./interfaces/file/file.module");
+const menu_module_1 = require("./interfaces/menu/menu.module");
+const upload_module_1 = require("./interfaces/upload/upload.module");
+const shop_module_1 = require("./interfaces/shop/shop.module");
+const system_module_1 = require("./interfaces/system/system.module");
 const socket_module_1 = require("./services/websocket/socket.module");
 const AppExceptionFilter_1 = require("./modules/exception/AppExceptionFilter");
 let AppModule = class AppModule {
@@ -33,10 +35,12 @@ AppModule = __decorate([
             author_module_1.AuthorModule,
             book_module_1.BookModule,
             menu_module_1.MenuModule,
+            config_module_1.ConfigModule,
+            socket_module_1.SocketModule,
+            file_module_1.FileModule,
+            upload_module_1.UploadModule,
             shop_module_1.ShopModule,
             system_module_1.SystemModule,
-            config_module_1.ConfigModule,
-            socket_module_1.SocketModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [
