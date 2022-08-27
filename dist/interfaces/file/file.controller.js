@@ -19,7 +19,7 @@ let FileController = class FileController {
     async downloadFile(id) {
         const res = fs.readFileSync(`/${process.cwd()}/test.png`);
         console.log(id);
-        return new common_1.StreamableFile(res, { type: 'application/image' });
+        return new common_1.StreamableFile(res);
     }
 };
 __decorate([
