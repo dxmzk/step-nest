@@ -1,7 +1,7 @@
 /**
  * Create By: Meng
  * Create Date: 2022-07-06
- * Desc: https://docs.nestjs.cn/8/websockets
+ * Desc: https://docs.nestjs.cn/9/websockets
  * 
  * const socket = new WebSocket('ws://localhost:8080');
       socket.onopen = function() {
@@ -34,12 +34,30 @@ export class SocketGateway {
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage("wsevent")
+  /**
+   * 
+   * 消息格式{"event":"wse","data":"你个傻哈哈"}
+   */
+  @SubscribeMessage("wse")
   onEvent(client: any, data: any): Observable<WsResponse<number>> {
     // console.log(client);
     console.log(data);
     return from([1, 2, 3]).pipe(
-      map((item) => ({ event: "wsevent", data, item}))
+      map((item) => ({ event: "wse", data, item}))
+    );
+    // return from([1, 2, 3]).pipe(map(item => ({ event: 'wsevent', data: item })));
+  }
+
+  /**
+   * 
+   * 消息格式{"event":"notify","data":"你个傻哈哈"}
+   */
+  @SubscribeMessage("notify")
+  onNotify(client: any, data: any): Observable<WsResponse<number>> {
+    // console.log(client);
+    console.log(data);
+    return from([1, 2, 3]).pipe(
+      map((item) => ({ event: "notify", data, item}))
     );
     // return from([1, 2, 3]).pipe(map(item => ({ event: 'wsevent', data: item })));
   }
