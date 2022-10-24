@@ -24,46 +24,43 @@ import { AuthGuard } from "src/modules/guards/auth_guard";
 @Controller("account")
 @UseGuards(AuthGuard)
 export class AccountController {
-  constructor(private readonly appService: AccountService) {}
+  constructor(private readonly service: AccountService) {}
 
   // 注册
   @Post("register")
   onRegister(@Body() body: RegisterBody): Promise<AppResult> {
-    return this.appService.onRegister(body);
+    return this.service.onRegister(body);
   }
 
   // 登录
   @Post("login")
   onLogin(@Body() body: LoginBody): Promise<AppResult> {
-    // 验参
-
-    return this.appService.onLogin(body);
+    return this.service.onLogin(body);
   }
 
-  // 重置账号
+  // 获取验证码
   @Get("code")
-  onCode(@Param('tag') tag: string): Promise<AppResult> {
-    return this.appService.onCode(tag);
+  onCode(@Param("tag") tag: string): Promise<AppResult> {
+    return this.service.onCode(tag);
   }
 
   // 重置账号
   @Post("reset")
   onReset(@Body() body: RegisterBody): Promise<AppResult> {
-    return this.appService.onReset(body);
+    return this.service.onReset(body);
   }
 
   // 用户信息
   @Header("token", "")
   @Get("info")
-  queryUserInfo(@Request() req): Promise<AppResult> {
+  queryInfo(@Request() req): Promise<AppResult> {
     const headers = req?.raw?.headers || {};
-
     const info = parasToken(headers.token);
     let uid = info.uid;
     if (!uid) {
       throw Errors.ACCOUNT_ERROR;
     }
-    return this.appService.queryUserInfo(uid);
+    return this.service.queryInfo(uid);
   }
 
   // 退出账号
@@ -76,7 +73,7 @@ export class AccountController {
     if (!uid) {
       throw Errors.ACCOUNT_ERROR;
     }
-    return this.appService.onLogout(uid);
+    return this.service.onLogout(uid);
   }
 
   // 删除
@@ -89,12 +86,12 @@ export class AccountController {
     if (!uid) {
       throw Errors.ACCOUNT_ERROR;
     }
-    return this.appService.onDelete(uid);
+    return this.service.onDelete(uid);
   }
 
   // 非开放接口
   @Get("users")
   getUsers(@Query("mode") mode: string): Promise<AppResult> {
-    return this.appService.getUsers(mode);
+    return this.service.getUsers(mode);
   }
 }

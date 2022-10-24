@@ -9,16 +9,16 @@ import { ShopService } from "./shop.service";
 
 @Controller("shop")
 export class ShopController {
-  constructor(private readonly appService: ShopService) {}
+  constructor(private readonly service: ShopService) {}
   //
   @Get("query")
   queryShops(): Promise<AppResult> {
-    return this.appService.queryShops();
+    return this.service.queryShops();
   }
 
   // 活动详情
   @Get("detail")
   queryDetail(id: number): Promise<AppResult> {
-    return this.appService.queryDetail(id);
+    return this.service.queryDetail(id);
   }
 }

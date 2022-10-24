@@ -10,11 +10,11 @@ import { ActivityService } from './activity.service';
 
 @Controller('activity')
 export class ActivityController {
-  constructor(private readonly appService: ActivityService) {}
+  constructor(private readonly service: ActivityService) {}
   // 活动列表
   @Get('activitys')
   queryActivitys(): Promise<AppResult> {
-    return this.appService.queryActivitys();
+    return this.service.queryActivitys();
   }
 
   // 活动详情

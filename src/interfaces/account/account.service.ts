@@ -146,7 +146,7 @@ export class AccountService {
   }
 
   // 获取用户信息
-  async queryUserInfo(uid: string): Promise<AppResult> {
+  async queryInfo(uid: string): Promise<AppResult> {
     let user = null;
     try {
       user = await AppDataSource.getRepository(User).findOneBy({ uid });

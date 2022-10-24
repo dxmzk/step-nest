@@ -9,16 +9,16 @@ import { SystemService } from "./system.service";
 
 @Controller("system")
 export class SystemController {
-  constructor(private readonly appService: SystemService) {}
+  constructor(private readonly service: SystemService) {}
 
   //
   @Get("config")
   queryConfig(): Promise<AppResult> {
-    return this.appService.queryConfig(0);
+    return this.service.queryConfig(0);
   }
   //
   @Get("update")
   queryUpdate(): Promise<AppResult> {
-    return this.appService.queryUpdate(0);
+    return this.service.queryUpdate(0);
   }
 }

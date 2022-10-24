@@ -11,41 +11,41 @@ import { ConfigService } from "./config.service";
 @Controller("config")
 // @UseGuards(AuthGuard)
 export class ConfigController {
-  constructor(private readonly appService: ConfigService) {}
+  constructor(private readonly service: ConfigService) {}
 
   // 活动列表
   @Get("banners")
   queryBanners(): Promise<AppResult> {
-    return this.appService.queryBanners();
+    return this.service.queryBanners();
   }
 
   // 活动列表
   @Get("tabs")
   queryTabs(): Promise<AppResult> {
-    return this.appService.queryTabs();
+    return this.service.queryTabs();
   }
 
   // 添加banner/轮播图
   @Post("create_banner")
   createBanner(): Promise<AppResult> {
-    return this.appService.createBanner();
+    return this.service.createBanner();
   }
 
   // 添加tab
   @Post("create_tab")
   createTab(): Promise<AppResult> {
-    return this.appService.createTab();
+    return this.service.createTab();
   }
 
   // 添加banner/轮播图
   @Post("delete_banner")
   deleteBanner(): Promise<AppResult> {
-    return this.appService.deleteBanner();
+    return this.service.deleteBanner();
   }
 
   // 添加tab
   @Post("delete_tab")
   deleteTab(): Promise<AppResult> {
-    return this.appService.deleteTab();
+    return this.service.deleteTab();
   }
 }
