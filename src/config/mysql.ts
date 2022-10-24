@@ -10,7 +10,7 @@ const mysqlConfig: any = {
   port: 3306,
   username: 'root',
   password: 'admin123',
-  database: 'test3',
+  database: 'test',
   entities: ["dist/**/*.entity{.ts,.js}"],
   synchronize: true,
   retryDelay: 3000, // 两次重试连接的间隔(ms)（默认：3000）
