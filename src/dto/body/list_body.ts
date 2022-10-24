@@ -1,11 +1,11 @@
 /**
  * Create By: Meng
- * Create Date: 2022-04
+ * Create Date: 2022-06
  * Desc: 
  */
 export class ListBody {
-  public keyword: string;
+  public sort?: number; // 排序
+  public keyword?: string; // 搜索关键字
   public pageNum: number;
   public pageSize: number;
-  public sort: number;
 }

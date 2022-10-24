@@ -40,7 +40,7 @@ export class AccountController {
 
   // 获取验证码
   @Get("code")
-  onCode(@Param("tag") tag: string): Promise<AppResult> {
+  onCode(@Param("keyword") tag: string): Promise<AppResult> {
     return this.service.onCode(tag);
   }
 

@@ -7,9 +7,8 @@ import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
 import { Cache } from "cache-manager";
 // import { InjectRepository } from '@nestjs/typeorm';
 // import { Repository } from "typeorm";
-
 import { LoginBody, RegisterBody } from "../../dto/body/index";
-import { User } from "../../dto/entity/user.entity";
+import { Users } from "../../dto/entity/users.entity";
 import { Pwd } from "../../dto/entity/pwd.entity";
 import AppResult from "../../modules/AppResult";
 import Errors from "../../modules/exception/Error";
@@ -29,27 +28,24 @@ export class AccountService {
       case 0:
         params.email = body.email;
         break;
-      case 1:
-        params.phone = body.phone;
-        break;
       default:
-        params.name = body.name;
+        params.name = body.account;
         break;
     }
 
-    const con = AppDataSource.getRepository(User);
-    const user: User = await con.findOneBy(params);
+    const con = AppDataSource.getRepository(Users);
+    const user: Users = await con.findOneBy(params);
 
-    if (!user || !user.uid) {
-      throw Errors.PWD_ERR;
+    if (!user) {
+      throw Errors.ACCOUNT_NOT;
     }
 
     try {
       // 获取密码
       const pwd = await AppDataSource.getRepository(Pwd).findOneBy({
-        id: user.pid,
+        uid: user.id,
       });
-      if (pwd && pwd.password == body.password) {
+      if (pwd && pwd.value == body.password) {
         // 登录成功
       } else {
         throw Errors.PWD_ERR;
@@ -58,16 +54,6 @@ export class AccountService {
       console.log(error);
       throw Errors.LOGIN_ERROR;
     }
-
-    user.token = createToken(user.uid, user.name);
-
-    con
-      .createQueryBuilder()
-      .update(User)
-      .set({ token: user.token })
-      .where("id = :id", { id: user.id })
-      .execute();
-
     return AppResult.succee(user);
   }
 
@@ -75,62 +61,15 @@ export class AccountService {
   async onRegister(body: RegisterBody): Promise<AppResult> {
     if (body.name) {
     }
-    const con = AppDataSource.getRepository(User);
+    const con = AppDataSource.getRepository(Users);
 
-    const oneName = await con.findOneBy({ name: body.name });
+    const oneName = await con.findOneBy({ account: body.account });
 
-    if (oneName || oneName.uid) {
+    if (oneName) {
       throw Errors.ACCOUNT_REPEAT;
     }
-
-    const uid = "A" + Date.now();
-
-    const pwd: Pwd = new Pwd();
-    pwd.uid = uid;
-    pwd.date = Date.now();
-    pwd.password = body.password;
-
-    try {
-      const pwd2 = await AppDataSource.getRepository(Pwd)
-        .createQueryBuilder()
-        .insert()
-        .into(Pwd)
-        .values(pwd)
-        .execute();
-      if (pwd2 && pwd2.identifiers && pwd2.identifiers.length > 0) {
-        pwd.id = pwd2.identifiers[0].id;
-      }
-    } catch (error) {
-      // console.log(error)
-      throw Errors.PWD_PARAM;
-    }
-
-    const user: User = new User();
-    user.uid = uid;
-    (user.pid = pwd.id), (user.name = body.name);
-    user.nickname = body.name;
-    user.email = body.email;
-    user.icon = `${Math.random() * 30}`;
-    user.token = createToken(uid, body.name);
-
-    let result = null;
-    try {
-      result = await con
-        .createQueryBuilder()
-        .insert()
-        .into(User)
-        .values(user)
-        .execute();
-
-      if (result.generatedMaps && result.generatedMaps.length > 0) {
-        result = result.generatedMaps[0];
-      }
-    } catch (error) {
-      // console.log(error)
-      throw Errors.ACCOUNT_ERROR;
-    }
-    body == null;
-    return AppResult.succee(result);
+    console.log(body);
+    return AppResult.succee('result');
   }
 
   // 重置密码 验证>更新>退出登录
@@ -146,10 +85,10 @@ export class AccountService {
   }
 
   // 获取用户信息
-  async queryInfo(uid: string): Promise<AppResult> {
+  async queryInfo(id: number): Promise<AppResult> {
     let user = null;
     try {
-      user = await AppDataSource.getRepository(User).findOneBy({ uid });
+      user = await AppDataSource.getRepository(Users).findOneBy({ id });
       if (!user || !user.id) {
         throw Errors.ACCOUNT_NOT;
       }
@@ -161,12 +100,8 @@ export class AccountService {
   }
 
   // 退出登录
-  async onLogout(uid: string): Promise<AppResult> {
+  async onLogout(uid: number): Promise<AppResult> {
     try {
-      // await AppDataSource.getRepository(User).update({
-      //   token: '',
-      //   uid
-      // });
     } catch (error) {
       throw Errors.ACCOUNT_ERROR;
     }
@@ -175,11 +110,11 @@ export class AccountService {
   }
 
   // 删除账号
-  async onDelete(uid: string): Promise<AppResult> {
-    await AppDataSource.getRepository(User)
+  async onDelete(uid: number): Promise<AppResult> {
+    await AppDataSource.getRepository(Users)
       .createQueryBuilder()
       .delete()
-      .from(User, "user")
+      .from(Users, "users")
       .where("uid = :uid", { uid })
       .execute();
 
@@ -191,7 +126,7 @@ export class AccountService {
     if (mode != "abcdefg") {
       return AppResult.succee("Are You 二傻!!!");
     }
-    const users = await AppDataSource.getRepository(User).find();
+    const users = await AppDataSource.getRepository(Users).find();
 
     return AppResult.succee(users);
   }

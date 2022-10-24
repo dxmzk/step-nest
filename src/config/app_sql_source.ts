@@ -12,7 +12,7 @@ const AppDataSource = new DataSource({
   port: 3306,
   username: 'root',
   password: 'admin123',
-  database: 'step',
+  database: 'test_sql',
   entities: ["dist/**/*.entity{.ts,.js}"],
   logging: false,
   synchronize: true,
