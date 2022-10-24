@@ -1,6 +1,6 @@
 /**
  * Author: Meng
- * Date: 2022-01
+ * Date: 2022-03
  * 网络请求封装
  */
 import { requestHeader, requestParams, requestHost } from './config';

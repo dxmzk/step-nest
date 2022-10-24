@@ -50,9 +50,4 @@ const _ENV_HOST: any = {
     auth: 'https://testauth123.com',
     pexels: 'https://api.pexels.com/v1',
   },
-  dev: {
-    base: '/axio',
-    auth: '/apis',
-    pexels: '/pexels',
-  },
 }

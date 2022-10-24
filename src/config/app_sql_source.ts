@@ -1,6 +1,6 @@
 /**
  * Create By: Meng
- * Create Date: 2022-04
+ * Create Date: 2022-03-27
  * Desc:
  */
 
@@ -12,7 +12,7 @@ const AppDataSource = new DataSource({
   port: 3306,
   username: 'root',
   password: 'admin123',
-  database: 'test3',
+  database: 'step',
   entities: ["dist/**/*.entity{.ts,.js}"],
   logging: false,
   synchronize: true,
