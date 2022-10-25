@@ -3,7 +3,7 @@
  * Date: 2022-09
  * Desc:
  */
-export class UserDAO {
+export class UserDto {
   id: number;
   code: string; //
   token: string; //

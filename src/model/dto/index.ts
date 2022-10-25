@@ -4,4 +4,4 @@
  * Desc: 
  */
 
-export * from './UserDao';
+export * from './UserDto';

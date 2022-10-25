@@ -16,7 +16,7 @@ import {
 } from "@nestjs/common";
 import { AccountService } from "./account.service";
 import AppResult from "../../modules/AppResult";
-import { LoginBody, RegisterBody } from "../../dto/body/index";
+import { LoginBody, RegisterBody } from "../../model/body/index";
 import Errors from "src/modules/exception/Error";
 import { parasToken } from "src/utils/user_utils";
 import { AuthGuard } from "src/modules/guards/auth_guard";
