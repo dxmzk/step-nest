@@ -5,7 +5,7 @@
  */
 
 const constants = {
-  port: 8379,
+  port: 8397,
   wsPort: 83
 }
 

@@ -15,7 +15,6 @@ import { ActivityModule } from "./interfaces/activity/activity.module";
 import { ConfigModule } from './interfaces/config/config.module';
 import { FileModule } from './interfaces/file/file.module';
 import { UploadModule } from './interfaces/upload/upload.module';
-import { ShopModule } from "./interfaces/shop/shop.module";
 import { SystemModule } from './interfaces/system/system.module';
 import { SocketModule } from './services/websocket/socket.module';
 // import Mysql from "./config/mysql";
@@ -32,7 +31,6 @@ import AppExceptionFilter from "./modules/exception/AppExceptionFilter";
     SocketModule,
     FileModule,
     UploadModule,
-    ShopModule,
     SystemModule,
   ],
   controllers: [AppController],

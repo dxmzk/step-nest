@@ -50,8 +50,7 @@ export class AccountController {
     return this.service.onReset(body);
   }
 
-  // 用户信息
-  @Header("token", "")
+  // 用户信息 // @Header("token", "")
   @Get("info")
   queryInfo(@Request() req): Promise<AppResult> {
     const headers = req?.raw?.headers || {};
@@ -77,8 +76,8 @@ export class AccountController {
   }
 
   // 删除
-  @Get("delete")
-  onDelete(@Request() req): Promise<AppResult> {
+  @Get("update")
+  onUpdate(@Request() req): Promise<AppResult> {
     const headers = req?.raw?.headers || {};
 
     const info = parasToken(headers.token);
@@ -86,7 +85,7 @@ export class AccountController {
     if (!uid) {
       throw Errors.ACCOUNT_ERROR;
     }
-    return this.service.onDelete(uid);
+    return this.service.onUpdate(uid);
   }
 
   // 非开放接口

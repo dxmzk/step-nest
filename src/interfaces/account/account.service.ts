@@ -8,8 +8,8 @@ import { Cache } from "cache-manager";
 // import { InjectRepository } from '@nestjs/typeorm';
 // import { Repository } from "typeorm";
 import { LoginBody, RegisterBody } from "../../dto/body/index";
-import { Users } from "../../dto/entity/users.entity";
-import { Pwd } from "../../dto/entity/pwd.entity";
+import { UserDAO } from "../../dto/dao/index";
+import { Users, Pwd } from "../../dto/entity/index";
 import AppResult from "../../modules/AppResult";
 import Errors from "../../modules/exception/Error";
 import { createToken } from "../../utils/user_utils";
@@ -22,25 +22,18 @@ export class AccountService {
 
   // 登录  验参>获取密码>对比密码>返回用户信息
   async onLogin(body: LoginBody): Promise<AppResult> {
-    // 验参
-    const params: any = {};
-    switch (body.mode) {
-      case 0:
-        params.email = body.email;
-        break;
-      default:
-        params.name = body.account;
-        break;
+    if (!body && !body.account && !body.password) {
+      throw Errors.ACCOUNT_PARAM;
     }
-
-    const con = AppDataSource.getRepository(Users);
-    const user: Users = await con.findOneBy(params);
-
-    if (!user) {
-      throw Errors.ACCOUNT_NOT;
-    }
-
+    let user: Users = null;
     try {
+      user = await AppDataSource.getRepository(Users).findOneBy({
+        account: body.account,
+      });
+
+      if (!user) {
+        throw Errors.ACCOUNT_NOT;
+      }
       // 获取密码
       const pwd = await AppDataSource.getRepository(Pwd).findOneBy({
         uid: user.id,
@@ -59,17 +52,21 @@ export class AccountService {
 
   // 注册 - 账号无重>验参>保存>返回user
   async onRegister(body: RegisterBody): Promise<AppResult> {
-    if (body.name) {
+    const repos = AppDataSource.getRepository(Users);
+    if (body.account) {
+      const oneName = await repos.findOneBy({ account: body.account });
+      if (oneName) {
+        throw Errors.ACCOUNT_REPEAT;
+      }
     }
-    const con = AppDataSource.getRepository(Users);
-
-    const oneName = await con.findOneBy({ account: body.account });
-
-    if (oneName) {
-      throw Errors.ACCOUNT_REPEAT;
-    }
+    const user = new Users();
+    user.account = body.account;
+    user.email = body.email;
+    user.nickname = body.name;
+    const res = await repos.save<Users>(user);
+    console.log(res);
     console.log(body);
-    return AppResult.succee('result');
+    return AppResult.succee("result");
   }
 
   // 重置密码 验证>更新>退出登录
@@ -109,8 +106,8 @@ export class AccountService {
     return AppResult.succee("退出成功");
   }
 
-  // 删除账号
-  async onDelete(uid: number): Promise<AppResult> {
+  // 更改账号
+  async onUpdate(uid: number): Promise<AppResult> {
     await AppDataSource.getRepository(Users)
       .createQueryBuilder()
       .delete()

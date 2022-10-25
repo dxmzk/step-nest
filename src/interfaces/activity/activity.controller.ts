@@ -19,44 +19,20 @@ export class ActivityController {
 
   // 活动详情
   @Get('detail')
-  queryDetail(@Query('id') id: number) {
-
+  queryDetail(@Query('id') id: number): Promise<AppResult>  {
+    return this.service.queryDetail(id);
   }
 
   // 创建/更新活动
   @Post('create')
-  createActivity() {
-
+  createActivity(): Promise<AppResult>  {
+    return this.service.createActivity();
   }
 
   // 创建/更新活动
   @Post('update')
-  upadteActivity() {
-
+  updateActivity(): Promise<AppResult>  {
+    return this.service.updateActivity();
   }
 
-  // 删除/撤销活动
-  // 创建/更新活动
-  @Post('change')
-  changeActivity(@Param('id') id: number) {
-
-  }
-
-  // 添加标签
-  @Post('create_tag')
-  createTag() {
-
-  }
-
-  // 添加标签
-  @Post('update_tag')
-  upadteTag() {
-
-  }
-
-  // 删除标签
-  @Get('delete_tag')
-  deleteTag(@Query('id') id: number) {
-
-  }
 }

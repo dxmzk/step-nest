@@ -8,7 +8,7 @@ export class LoginBody {
   readonly email?: string; // 邮箱
   readonly account?: string; // 账号
   readonly password?: string; // 密码
-  readonly mode: number; // 登录模式 0：邮箱；1：uid;
+  // readonly mode: number; // 登录模式 0：邮箱；1：uid;
 }
 
 export class RegisterBody {
