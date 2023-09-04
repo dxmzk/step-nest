@@ -1,6 +1,6 @@
 /**
- * Create By: Meng
- * Create Date: 2022-07-06
+ * Author: Meng
+ * Date: 2022-07-06
  * Desc: https://docs.nestjs.cn/9/websockets
  * 
  * const socket = new WebSocket('ws://localhost:8080');
@@ -17,48 +17,60 @@
         };
       };
  */
+import { UseFilters } from '@nestjs/common';
 import {
+  ConnectedSocket,
+  MessageBody,
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
-  WsResponse,
-} from "@nestjs/websockets";
-import { from, Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Server } from "ws";
+} from '@nestjs/websockets';
 
-import constants from "src/config/constants";
+import Constants from 'src/config/constants';
+import { SocketExceptionsFilter } from './socket.exception';
+import { SocketRes } from './socket_res';
 
-@WebSocketGateway(constants.wsPort)
+// @WebSocketGateway(Constants.ws_port, { transports: ['websocket'] })
+// @WebSocketGateway(Constants.ws_port)
 export class SocketGateway {
-  @WebSocketServer()
-  server: Server;
+  private socket_clients = new Map<string, any>();
 
   /**
-   * 
    * 消息格式{"event":"wse","data":"你个傻哈哈"}
    */
-  @SubscribeMessage("wse")
-  onEvent(client: any, data: any): Observable<WsResponse<number>> {
+  // @UseFilters(new SocketExceptionsFilter())
+  @SubscribeMessage('wse')
+  async onEvent(
+    @ConnectedSocket() client: any,
+    @MessageBody() data: any,
+  ): Promise<SocketRes> {
     // console.log(client);
     console.log(data);
-    return from([1, 2, 3]).pipe(
-      map((item) => ({ event: "wse", data, item}))
-    );
-    // return from([1, 2, 3]).pipe(map(item => ({ event: 'wsevent', data: item })));
+    return SocketRes.succee('OK');
   }
 
   /**
-   * 
+   * 消息格式{"event":"robot","data":"你个傻哈哈"}
+   */
+  @SubscribeMessage('robot')
+  async onRobot(client: any, data: any): Promise<SocketRes> {
+    if(!this.socket_clients.has(client)) {
+      this.socket_clients.set(data.fromId, client);
+    }
+    
+    return SocketRes.succee('OK');
+  }
+
+  /**
    * 消息格式{"event":"notify","data":"你个傻哈哈"}
    */
-  @SubscribeMessage("notify")
-  onNotify(client: any, data: any): Observable<WsResponse<number>> {
+  @UseFilters(new SocketExceptionsFilter())
+  @SubscribeMessage('notify')
+  async onNotify(
+    @ConnectedSocket() client: any,
+    @MessageBody() data: any,
+  ): Promise<SocketRes> {
     // console.log(client);
     console.log(data);
-    return from([1, 2, 3]).pipe(
-      map((item) => ({ event: "notify", data, item}))
-    );
-    // return from([1, 2, 3]).pipe(map(item => ({ event: 'wsevent', data: item })));
+    return SocketRes.succee('OK');
   }
 }

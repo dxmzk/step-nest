@@ -1,13 +1,14 @@
-import { Module, CacheModule } from '@nestjs/common';
-// import { TypeOrmModule } from '@nestjs/typeorm';
-// import { User } from 'src/dto/entity/user.entity';
+import { Module } from '@nestjs/common';
+// import { JwtService } from '@nestjs/jwt';
 import { AccountController } from './account.controller';
 import { AccountService } from './account.service';
+// import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  // imports: [TypeOrmModule.forFeature([User])],
-  imports: [CacheModule.register()],
+  // imports: [CacheModule.register()],
+  imports: [],
   controllers: [AccountController],
-  providers: [AccountService]
+  providers: [AccountService],
+  // providers: [AccountService, JwtService],
 })
 export class AccountModule {}

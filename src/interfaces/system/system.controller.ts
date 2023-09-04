@@ -1,24 +1,31 @@
 /**
- * Create By: Meng
- * Create Date: 2022-04
- * Desc: 
+ * Author: Meng
+ * Date: 2022-03-09
+ * Desc: 系统配置
  */
 import { Controller, Get, Query } from "@nestjs/common";
-import AppResult from "src/modules/AppResult";
+import ResultData from "src/model/ResultData";
 import { SystemService } from "./system.service";
 
 @Controller("system")
 export class SystemController {
-  constructor(private readonly appService: SystemService) {}
+  constructor(private readonly service: SystemService) {}
+
+  // 获取客户端最新版本
+  @Get("clients")
+  queryAllClient(): Promise<ResultData> {
+    return this.service.queryAllClient();
+  }
+
+  // 
+  @Get("action")
+  initAction(@Query('tag') tag: string): Promise<ResultData> {
+    return this.service.initAction(tag);
+  }
 
   //
-  @Get("config")
-  queryConfig(): Promise<AppResult> {
-    return this.appService.queryConfig(0);
-  }
-  //
   @Get("update")
-  queryUpdate(): Promise<AppResult> {
-    return this.appService.queryUpdate(0);
+  queryUpdate(): Promise<ResultData> {
+    return this.service.queryUpdate(0);
   }
 }

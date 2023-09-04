@@ -1,69 +1,41 @@
 /**
- * Create By: Meng
- * Create Date: 2022-03
- * Desc: 
+ * Author: Meng
+ * Date: 2022-03-09
+ * Desc: 菜单
  */
-import { Controller, Get, Param, Post } from '@nestjs/common';
-import AppResult from 'src/modules/AppResult';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import ResultData from 'src/model/ResultData';
+import { MenuBody } from 'src/model/body/index';
+import { AuthGuard } from 'src/modules/guards/auth_guard';
 import { MenuService } from './menu.service';
 
 @Controller('menu')
+@UseGuards(AuthGuard)
 export class MenuController {
-  constructor(private readonly appService: MenuService) {}
+  constructor(private readonly service: MenuService) {}
 
   // 查询
-  @Get('query')
-  queryMenu(): Promise<AppResult> {
-    return this.appService.queryMenu();
+  @Get('list')
+  queryMenu(@Headers('Token') token: string): Promise<ResultData> {
+    return this.service.queryMenu(token);
+  }
+
+  // 创建菜单
+  @Post('create')
+  async createMenu(@Body() body: MenuBody): Promise<ResultData> {
+    return this.service.createMenu(body);
   }
 
   // 更新
   @Post('update')
-  async updateMenu(id: number): Promise<AppResult> {
-    return this.appService.updateMenu(id);
+  async updateMenu(@Body() body: MenuBody): Promise<ResultData> {
+    return this.service.updateMenu(body);
   }
-
-   // 创建菜单
-   @Post('create')
-   async createMenu(id: number): Promise<AppResult> {
-    return this.appService.createMenu(id);
-  }
-
-  // 删除菜单
-  @Get('delete')
-  async deleteMenu(id: number): Promise<AppResult> {
-    return this.appService.deleteMenu(id);
-  }
-
-  // 删除菜单
-  @Get(':id')
-  async delete3Menu(@Param('id') id: number): Promise<AppResult> {
-    return this.appService.deleteMenu(id);
-  }
-
-
-  // @Post()
-  // create(@Body() createDto: CreateDto) {
-  //   return 'This action adds a new ';
-  // }
-  
-  // @Get()
-  // findAll(@Query() query: ListAllEntities) {
-  //   return `This action returns all (limit: ${query.limit} items)`;
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return `This action returns a #${id} `;
-  // }
-
-  // @Put(':id')
-  // update(@Param('id') id: string, @Body() updateDto: UpdateDto) {
-  //   return `This action updates a #${id} `;
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return `This action removes a #${id} `;
-  // }
 }

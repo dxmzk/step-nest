@@ -1,6 +1,6 @@
 /**
- * Create By: Meng
- * Create Date: 2022-07-06
+ * Author: Meng
+ * Date: 2022-07-06
  * Desc: 权限守卫
  * 与管道和异常过滤器一样，守卫可以是控制范围的、方法范围的或全局范围的。
 
@@ -14,8 +14,8 @@
     this.appService.create(catDto);
   }
  */
-import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class RoleGuard implements CanActivate {

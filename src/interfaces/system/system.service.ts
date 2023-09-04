@@ -1,19 +1,33 @@
 /**
- * Create By: Meng
- * Create Date: 2022-04
- * Desc: 
+ * Author: Meng
+ * Date: 2022-03-09
+ * Desc: 系统配置
  */
 import { Injectable } from '@nestjs/common';
-import AppResult from 'src/modules/AppResult';
+import ResultData from '../../model/ResultData';
+import AppWebSocketServer from '../../services/websocket/app_websocket';
 
 @Injectable()
 export class SystemService {
-  // 
-  async queryConfig(id: number): Promise<AppResult> {
-    return AppResult.succee("");
+  constructor() {
+    const timer = setTimeout(() => {
+      clearTimeout(timer);
+      this.init();
+    }, 3000);
   }
-  // 
-  async queryUpdate(id: number): Promise<AppResult> {
-    return AppResult.succee("");
+
+  private init() {}
+
+  async queryAllClient(): Promise<ResultData> {
+    const clients = AppWebSocketServer.getClients();
+    return ResultData.success(clients);
+  }
+  //
+  async initAction(tag: string): Promise<ResultData> {
+    return ResultData.success(tag);
+  }
+  //
+  async queryUpdate(id: number): Promise<ResultData> {
+    return ResultData.success(id);
   }
 }

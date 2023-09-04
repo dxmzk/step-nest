@@ -1,6 +1,6 @@
 /**
- * Create By: Meng
- * Create Date: 2022-07-06
+ * Author: Meng
+ * Date: 2022-07-06
  * Desc:
  */
 import {
@@ -9,9 +9,9 @@ import {
   ExecutionContext,
   CallHandler,
   RequestTimeoutException,
-} from "@nestjs/common";
-import { Observable, throwError, TimeoutError } from "rxjs";
-import { catchError, timeout } from "rxjs/operators";
+} from '@nestjs/common';
+import { Observable, throwError, TimeoutError } from 'rxjs';
+import { catchError, timeout } from 'rxjs/operators';
 
 @Injectable()
 export class TimeoutInterceptor implements NestInterceptor {
@@ -23,7 +23,7 @@ export class TimeoutInterceptor implements NestInterceptor {
           return throwError(() => new RequestTimeoutException());
         }
         return throwError(() => err);
-      })
+      }),
     );
   }
 }

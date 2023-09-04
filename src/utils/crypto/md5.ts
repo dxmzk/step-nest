@@ -44,76 +44,71 @@ function bitRotateLeft(num: number, cnt: number) {
 
 /**
  * Basic operation the algorithm uses.
- *
- * @param {number} q q
- * @param {number} a a
- * @param {number} b b
- * @param {number} x x
- * @param {number} s s
- * @param {number} t t
- * @returns {number} Result
  */
-function md5cmn(q: number, a: number, b: number, x: number, s: number, t: number) {
+function md5cmn(
+  q: number,
+  a: number,
+  b: number,
+  x: number,
+  s: number,
+  t: number,
+) {
   return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b);
 }
 /**
  * Basic operation the algorithm uses.
- *
- * @param {number} a a
- * @param {number} b b
- * @param {number} c c
- * @param {number} d d
- * @param {number} x x
- * @param {number} s s
- * @param {number} t t
- * @returns {number} Result
  */
-function md5ff(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+function md5ff(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number,
+) {
   return md5cmn((b & c) | (~b & d), a, b, x, s, t);
 }
 /**
  * Basic operation the algorithm uses.
- *
- * @param {number} a a
- * @param {number} b b
- * @param {number} c c
- * @param {number} d d
- * @param {number} x x
- * @param {number} s s
- * @param {number} t t
- * @returns {number} Result
  */
-function md5gg(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+function md5gg(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number,
+) {
   return md5cmn((b & d) | (c & ~d), a, b, x, s, t);
 }
 /**
  * Basic operation the algorithm uses.
- *
- * @param {number} a a
- * @param {number} b b
- * @param {number} c c
- * @param {number} d d
- * @param {number} x x
- * @param {number} s s
- * @param {number} t t
- * @returns {number} Result
  */
-function md5hh(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+function md5hh(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number,
+) {
   return md5cmn(b ^ c ^ d, a, b, x, s, t);
 }
 /**
  * Basic operation the algorithm uses.
- *
- * @param {number} a a
- * @param {number} b b
- * @param {number} c c
- * @param {number} d d
- * @param {number} x x
- * @param {number} s s
- * @param {number} t t
- * @returns {number} Result
  */
-function md5ii(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+function md5ii(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  x: number,
+  s: number,
+  t: number,
+) {
   return md5cmn(c ^ (b | ~d), a, b, x, s, t);
 }
 

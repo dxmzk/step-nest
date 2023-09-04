@@ -1,100 +1,62 @@
 /**
- * Create By: Meng
- * Create Date: 2022-03
- * Desc:
+ * Author: Meng
+ * Date: 2022-03-09
+ * Desc: 账号操作
  */
-import {
-  Body,
-  Controller,
-  Get,
-  Header,
-  Param,
-  Post,
-  Query,
-  Request,
-  UseGuards,
-} from "@nestjs/common";
-import { AccountService } from "./account.service";
-import AppResult from "../../modules/AppResult";
-import { LoginBody, RegisterBody } from "../../dto/body/index";
-import Errors from "src/modules/exception/Error";
-import { parasToken } from "src/utils/user_utils";
-import { AuthGuard } from "src/modules/guards/auth_guard";
+import { Body, Controller, Get, Post, Headers } from '@nestjs/common';
+import { AccountService } from './account.service';
+import ResultData from '../../model/ResultData';
+import { LoginBody, RegisterBody, AuthCodeBody } from '../../model/body/index';
 
-@Controller("account")
-@UseGuards(AuthGuard)
+@Controller('account')
 export class AccountController {
-  constructor(private readonly appService: AccountService) {}
+  constructor(private readonly service: AccountService) {}
 
   // 注册
-  @Post("register")
-  onRegister(@Body() body: RegisterBody): Promise<AppResult> {
-    return this.appService.onRegister(body);
+  @Post('register')
+  onRegister(@Body() body: RegisterBody): Promise<ResultData> {
+    return this.service.onRegister(body);
   }
 
   // 登录
-  @Post("login")
-  onLogin(@Body() body: LoginBody): Promise<AppResult> {
-    // 验参
-
-    return this.appService.onLogin(body);
+  @Post('login')
+  onLogin(@Body() body: LoginBody): Promise<ResultData> {
+    return this.service.onLogin(body);
   }
 
   // 重置账号
-  @Get("code")
-  onCode(@Param('tag') tag: string): Promise<AppResult> {
-    return this.appService.onCode(tag);
+  @Post('authCode')
+  onCreateCode(@Body() body: AuthCodeBody): Promise<ResultData> {
+    return this.service.onCreateCode(body);
   }
 
   // 重置账号
-  @Post("reset")
-  onReset(@Body() body: RegisterBody): Promise<AppResult> {
-    return this.appService.onReset(body);
+  @Post('reset')
+  onReset(@Headers('Token') token: string, @Body() body: LoginBody,): Promise<ResultData> {
+    return this.service.onReset(token, body);
   }
 
-  // 用户信息
-  @Header("token", "")
-  @Get("info")
-  queryUserInfo(@Request() req): Promise<AppResult> {
-    const headers = req?.raw?.headers || {};
-
-    const info = parasToken(headers.token);
-    let uid = info.uid;
-    if (!uid) {
-      throw Errors.ACCOUNT_ERROR;
-    }
-    return this.appService.queryUserInfo(uid);
+  // 用户信息 // @Header("token", "")
+  @Get('info')
+  queryInfo(@Headers('Token') token: string): Promise<ResultData> {
+    return this.service.queryInfo(token);
   }
 
   // 退出账号
-  @Get("logout")
-  onLogout(@Request() req): Promise<AppResult> {
-    const headers = req?.raw?.headers || {};
-
-    const info = parasToken(headers.token);
-    let uid = info.uid;
-    if (!uid) {
-      throw Errors.ACCOUNT_ERROR;
-    }
-    return this.appService.onLogout(uid);
+  @Get('logout')
+  onLogout(@Headers('Token') token: string): Promise<ResultData> {
+    return this.service.onLogout(token);
   }
 
-  // 删除
-  @Get("delete")
-  onDelete(@Request() req): Promise<AppResult> {
-    const headers = req?.raw?.headers || {};
-
-    const info = parasToken(headers.token);
-    let uid = info.uid;
-    if (!uid) {
-      throw Errors.ACCOUNT_ERROR;
-    }
-    return this.appService.onDelete(uid);
+  // 修改/删除
+  @Get('update')
+  onUpdate(@Headers('Token') token: string, body: RegisterBody): Promise<ResultData> {
+    return this.service.onUpdate(token, body);
   }
 
-  // 非开放接口
-  @Get("users")
-  getUsers(@Query("mode") mode: string): Promise<AppResult> {
-    return this.appService.getUsers(mode);
+  // 修改/删除
+  @Get('delete')
+  onDelete(@Headers('Token') token: string): Promise<ResultData> {
+    return this.service.onDelete(token);
   }
 }

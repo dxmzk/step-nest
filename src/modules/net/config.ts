@@ -4,55 +4,61 @@
  * 网络配置项
  */
 
-enum ENV_NAME {
-  PROD = 'prod',
-  TEST = 'test',
-  DEV = 'dev'
+import Constants, {RunEnv} from "../../config/constants";
+
+export interface RequestParams {
+  /** 请求地址 */
+  url: string;
+  /** 请求方法 */
+  method?: string;
+  /** 请求参数 */
+  data?: object | string | undefined;
+  /** 请求头 */
+  headers?: object;
+  /** 域名(服务) */
+  host?: string;
+  /** 请求环境 */
+  env?: RunEnv;
+  /** 是否请求重连 */
+  reload?: boolean;
+  /** 当前请求重连次数 */
+  count?: number;
+  /** 最大重连次数 */
+  maxCount?: number;
+  /** 请求类型 分为：text/blob/stream  browser only: 'blob' */
+  responseType?: string;
 }
 
-export const ENV_CONST = {
-  PKEY: '563492ad6f91700001000001c79e2acd5ad3461baf2cb018a7d70f48', // pexels key
-  AMAP: "4e013fcd32723446a88ce0880c425a88", // 高德地图key
-  // env: ENV_NAME.PROD,
-  env: ENV_NAME.TEST,
-  // env: ENV_NAME.DEV,
-}
+// 常量配置
+export const net_config = {
+  env: Constants.run_env, // prod: 生产, test: 测试, dev: 开发
+};
 
-export function requestHost(host = 'base'): string {
-  const env = ENV_CONST.env;
-  const url = _ENV_HOST[env][host];
+export function getRequestHost(host: string, env?: RunEnv) {
+  const url = env_hosts[env || net_config.env][host || 'def'];
   return url;
 }
 
-export function requestHeader(header = {}): any {
-  return {
-    ...header,
-    Authorization: ENV_CONST.PKEY,
-    token: ''
-  };
+export function mergeParams(params: any) {
+  
+  return params;
 }
 
-export function requestParams(params = {}): any {
-  return {
-    ...params,
-  };
+export function mergeHeaders(headers: any) {
+  headers.token = '';
+  headers.channel = 'node';
+  return headers;
 }
 
-const _ENV_HOST: any = {
+const env_hosts: any = {
   prod: {
-    base: 'https://prodbase123.com',
-    auth: 'https://prodauth123.com',
+    def: 'http://def.com',
+    auth: 'http://auth.com',
     pexels: 'https://api.pexels.com/v1',
-
   },
   test: {
-    base: 'https://testase123.com',
-    auth: 'https://testauth123.com',
+    def: 'http://def-test.com',
+    auth: 'http://auth-test.com',
     pexels: 'https://api.pexels.com/v1',
   },
-  dev: {
-    base: '/axio',
-    auth: '/apis',
-    pexels: '/pexels',
-  },
-}
+};

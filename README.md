@@ -1,72 +1,30 @@
 
-## 简介
+# 简介
 
-地址：https://github.com/nestjs/nest
-文档：https://docs.nestjs.cn/
-加密库：crypto-js
-http://localhost:8197/3000
-定时任务：https://docs.nestjs.cn/8/techniques?id=%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1
-数据卡：https://github.com/typeorm/typeorm
+- Nest [Nest 官网文档](https://github.com/nestjs/nest);
+- Nest [Nest 中文文档](https://docs.nestjs.cn/9/introduction);
+- TypeORM [TypeORM 文档](https://typeorm.io/);
+- TypeScript [TypeScript 文档](https://www.typescriptlang.org/zh/docs/handbook/typescript-from-scratch.html);
 
-## 开始
+## 操作
 
 ```bash
-$ npm i -g @nestjs/cli
+# 安装依赖库
 $ npm install
+# 运行项目
 $ npm run start
+# dev环境 运行项目 - 支持热更新
 $ npm run start:dev
+# prod环境 运行项目 - 支持热更新
 $ npm run start:prod
-
-$ nest g controller name or path/name // 创建服务类
-$ nest g service name or path/name    // 创建服务类
-$ nest g module name or path/name     // 创建模块
-```
-
-## Test
-
-```
+# unit tests
 $ npm run test
+# e2e tests
 $ npm run test:e2e
+# test coverage
 $ npm run test:cov
 ```
 
-### 结构
+## License
 
-```bash
-
-├── dist                      # 
-│── test                      # 测试代码
-│── src                       # 源代码
-    │── config                # 配置项
-        |── mysql.ts          # - 数据库配置
-    │── dto                   # 实体/数据类
-        |── body              # - 请求Body
-        |── data              # - 
-        |── entity            # - 数据库映射实体
-    │── interfaces            # 接口模块
-        │── account           # - 账号
-        │── activity          # - 活动
-        │── author            # - 作者
-        │── book              # - 书籍
-        │── menu              # - 菜单
-        │── shop              # - 商店
-        │── upload            # - 文件上传
-    │── modules               # 模块
-        |── exception         # - 错误处理模块
-        |── AppResult         # - 数据返回实体类
-    │── utils                 # 工具类
-        |── crypto            # - 加密
-        |── index.ts          # - 
-        |── userUtils.ts      # - 用户信息处理
-    │── app.controller.ts     # 全局配置
-    │── app.module.ts         # 项目入口
-    │── app.service.ts        # 全局样式
-    │── main.ts               # 入口
-├── .eslintrc                 # eslint配置文件
-│── .gitignore                # git忽视文件
-├── .prettierrc               # 统一风格prettier配置
-│── babel.config.js           # babel配置
-│── tsconfig.config.json      # babel配置
-│── package.json              # 项目依赖等
-│── README.md                 # 说明文件
-```
+Nest is [MIT licensed](LICENSE).

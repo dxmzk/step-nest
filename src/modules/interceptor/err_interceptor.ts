@@ -1,6 +1,6 @@
 /**
- * Create By: Meng
- * Create Date: 2022-07-06
+ * Author: Meng
+ * Date: 2022-07-06
  * Desc:
  */
 
@@ -9,16 +9,16 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-} from "@nestjs/common";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import Errors from "../exception/Error";
+import CommonError from '../exception/CommonError';
 
 @Injectable()
 export class ErrInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log("ErrInterceptor Before...");
-    return next.handle().pipe(map(data => (Errors.UNKNOWN_ERROR)));
+    console.log('ErrInterceptor Before...');
+    return next.handle().pipe(map((data) => CommonError.UNKNOWN_ERROR));
   }
 }

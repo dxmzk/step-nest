@@ -1,6 +1,6 @@
 /**
- * Create By: Meng
- * Create Date: 2022-07-06
+ * Author: Meng
+ * Date: 2022-07-06
  * Desc: 权限守卫
  * 与管道和异常过滤器一样，守卫可以是控制范围的、方法范围的或全局范围的。
  * 这个装饰器可以使用单个参数，也可以使用逗号分隔的多个守卫。
@@ -9,44 +9,52 @@
   @UseGuards(AuthGuard)
   export class you.controller {}
  */
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from "@nestjs/common";
-import { Observable } from "rxjs";
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import CommonError from '../exception/CommonError';
+import Log3 from '../log/Log3';
+
+// 忽略校验
+const ignore_route = ['/account/login', '/account/register'];
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+
+  constructor(private jwtService: JwtService) {}
+
+  // 
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     return this._validateRequest(request);
   }
 
   // 校验是否等录或者登录过期
   private _validateRequest(request: any): boolean {
-    // console.log('================>AuthGuard validateRequest');
-    // console.log(request.url);
-    // console.log(request.params);
-    
-//      返回 false 的守卫会抛出一个 HttpException 异常。{"statusCode": 403,"message": "Forbidden resource"}
-
-//      如果您想要向最终用户返回不同的错误响应，你应该抛出一个异常。
-//      throw new UnauthorizedException(); // 由守卫引发的任何异常都将由异常层(全局异常过滤器和应用于当前上下文的任何异常过滤器)处理
     const url: string = request.url;
-    if(url.includes('/account/login?') || url.includes('/account/register?')) {
+    if (ignore_route.filter((e) => url.includes(e)).length > 0) {
       return true;
     }
     return this._parseToken(request.headers);
   }
 
+  // 解析Token
   private _parseToken(headers: any): boolean {
-    // for (const key in headers) {
-    //   console.log(key, headers[key]);
-    // }
-    if(headers && headers.token) {
-      console.log(headers.token)
-      return true;
+    if (headers && headers.token) {
+      try {
+        const token = this.jwtService.decode(headers.token);
+        return token != null;
+      } catch (error) {
+        Log3.ex(error, 'AuthGuard parseToken');
+        throw CommonError.TOKEN_ERROR;
+      }
+    }else {
+      throw CommonError.NOT_LOGIN; // UnauthorizedException
+      // return false;
     }
-    throw new UnauthorizedException('登录超时，请重新登录！', '账户不存在');
-    // return false;
   }
 }

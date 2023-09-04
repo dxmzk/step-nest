@@ -1,10 +1,11 @@
 /**
  * Author: Meng
- * Date: 2022-01
+ * Date: 2022-03-09
  * 网络请求封装
  */
-import { requestHeader, requestParams, requestHost } from './config';
+
 import { network } from './axios';
+import { getRequestHost, mergeHeaders, mergeParams } from './config';
 
 export interface Result {
   message: string;
@@ -13,59 +14,72 @@ export interface Result {
   header?: any;
 }
 
-// 网络请求
-export function request({host = 'base', url = '', method = 'GET', data = {}, headers = {} } = {}): Promise<Result> {
+/**
+ * 网络请求
+ * @param param: RequestParams
+ */
+export function request({
+  url = '',
+  method = 'GET',
+  data = {},
+  headers = {},
+  host = null,
+  env = null,
+  reload = false,
+  count = 1,
+  maxCount = 5,
+} = {}): Promise<Result> {
+  const url2 = `${getRequestHost(host, env)}${url}`;
+  const data2 = mergeParams(data);
+  const headers2 = mergeHeaders(headers);
 
-  const baseURL = requestHost(host); // 地址拼接
-  headers = requestHeader(headers); // 请求头处理
-  data = requestParams(data); // 参数处理
+  const options = { url: url2, data: data2, headers: headers2, method };
 
-  const options: any = { baseURL, url, method, headers, data }; // 参数重组
-
-  _pointLog('-----------> Request <-----------', options);
+  // 发起网络
   return new Promise((resolve) => {
-    let result: Result = { message: '', code: -1, data: null, header: {} };
-    network(options).then((res) => {
-      _pointLog('-----------> Response <-----------', res.data);
-      if (res.status == 200) {
+    const result = { code: -1, data: '', message: '', headers: null };
+    // console.log(options)
+    network(options)
+      .then((res: any) => {
         _parseData(res, result);
-        resolve(result);
-      } else {
-         _parseError(res, result)
-        resolve(result);
-      }
-    }).catch((err) => {
-      _pointLog('-----------> Error <-----------', err);
-      _parseError(err, result)
-      resolve(result);
-    })
+      })
+      .catch((err: any) => {
+        _parseErr(err, result);
+      })
+      .finally(() => {
+        // 请求重连
+        if (result.code != 0 && reload && count < maxCount) {
+          count += 1;
+          request({
+            url,
+            method,
+            data,
+            headers,
+            host,
+            env,
+            reload,
+            count,
+            maxCount,
+          });
+        } else {
+          resolve(result);
+        }
+      });
   });
 }
 
-// 解析response
+// 解析数据
 function _parseData(res: any, result: Result) {
-  result.data = res.data;
-  result.header = res.header;
-  result.code = 0;
-  // return result;
-}
-
-// 解析错误
-function _parseError(data: any, result: Result) {
-  if (data.statusCode) {
-    result.code = data.statusCode;
-    result.message = data.errMsg;
-  } else if (data.errMsg) {
-    result.code = -10101;
-    result.message = data.errMsg;
+  if (res.status == 200) {
+    result.data = res.data;
+    result.code = 0;
+    result.message = 'ok';
   }
-  // return result;
+  // console.log(res.data);
+  return result;
 }
 
-// 日志
-function _pointLog(tag: string, msg: string) {
-  // if (ENV_CONST.env != 'prod') {
-  //   console.log(tag);
-  //   console.log(msg);
-  // }
+// 解析错误日志
+function _parseErr(err: any, result: Result) {
+  return result;
 }
